@@ -73,8 +73,16 @@ function getFallbackFontList(locale: Locale) {
         "ＭＳ Ｐゴシック",
         "MS PGothic"
       ];
-    case Locale.zh_CN:
+    case Locale.pl_PL:
     case Locale.en_US:
+      return [
+        "Segoe UI",
+        "Arial",
+        "Helvetica Neue",
+        "Helvetica",
+        "Liberation Sans"
+      ];
+    case Locale.zh_CN:
     default:
       return [
         "Noto Sans CJK SC",

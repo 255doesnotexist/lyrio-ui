@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { Icon, Form, Header, Input, Checkbox, TextArea, Button, List, Radio, Ref } from "semantic-ui-react";
 import { observer } from "mobx-react";
 import { isURL } from "class-validator";
-import md5 from "blueimp-md5";
 
 import style from "./UserEdit.module.less";
+import { md5 } from "@/utils/md5";
 
 import api from "@/api";
 import { appState } from "@/appState";

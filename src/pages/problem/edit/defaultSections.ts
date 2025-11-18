@@ -103,5 +103,38 @@ export default <Record<Locale, LocalizedContentSection[]>>{
       type: "Text",
       text: ""
     }
+  ],
+  [Locale.pl_PL]: [
+    {
+      uuid: uuid(),
+      sectionTitle: "Opis",
+      type: "Text",
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Wejście",
+      type: "Text",
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Wyjście",
+      type: "Text",
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Przykład",
+      type: "Sample",
+      sampleId: 0,
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Ograniczenia i wskazówki",
+      type: "Text",
+      text: ""
+    }
   ]
 };

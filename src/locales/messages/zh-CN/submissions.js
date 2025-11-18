@@ -3,6 +3,7 @@ return {
   query: {
     problem_id: "题目",
     submitter: "提交者",
+    contest_id: "比赛",
     code_language: "语言",
     code_language_all: "不限语言",
     status: "状态",
@@ -13,6 +14,7 @@ return {
   query_error: {
     INVALID_PROBLEM_ID: "无效的题目 ID。",
     INVALID_USERNAME: "无效的用户名。",
+    INVALID_CONTEST_ID: "无效的比赛 ID。",
     NO_SUCH_PROBLEM: "无此题目。",
     NO_SUCH_USER: "无此用户。"
   },

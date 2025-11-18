@@ -14,7 +14,7 @@ return {
     no_problems: "暂无题目"
   },
   hitokoto: {
-    header: "一言（ヒトコト）",
+    header: "一言",
     error: "加载一言时发生错误。",
     refresh: "刷新"
   },

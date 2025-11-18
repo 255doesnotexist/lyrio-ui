@@ -40,6 +40,7 @@ interface SubmissionsQuery {
   status: SubmissionStatus;
   minId: number;
   maxId: number;
+  contestId: number;
 }
 
 function normalizeQuery(query: Record<string, string>): SubmissionsQuery {
@@ -53,7 +54,8 @@ function normalizeQuery(query: Record<string, string>): SubmissionsQuery {
       : null,
     status: query.status in SubmissionStatus ? (query.status as SubmissionStatus) : null,
     minId: Number.isSafeInteger(Number(query.minId)) ? Number(query.minId) : null,
-    maxId: Number.isSafeInteger(Number(query.maxId)) ? Number(query.maxId) : null
+    maxId: Number.isSafeInteger(Number(query.maxId)) ? Number(query.maxId) : null,
+    contestId: Number(query.contestId) ? Number(query.contestId) : null
   };
   return Object.fromEntries(Object.entries(result).filter(([key, value]) => value != null)) as SubmissionsQuery;
 }
@@ -106,12 +108,19 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
     value => !value || isValidUsername(value)
   );
 
+  const [queryContestId, setQueryContestId] = useState(props.query.contestId ? props.query.contestId.toString() : "");
+  const [checkQueryContestId, queryContestIdError] = useFieldCheckSimple(
+    queryContestId,
+    value => !value || Number.isSafeInteger(Number(value))
+  );
+
   const [queryCodeLanguage, setQueryCodeLanguage] = useState(props.query.codeLanguage);
   const [queryStatus, setQueryStatus] = useState(props.query.status);
 
   function onFilter(filterMySubmissions: boolean) {
     if (!checkQueryProblemId()) return toast.error(_(".query_error.INVALID_PROBLEM_ID"));
     else if (!filterMySubmissions && !checkQuerySubmitter()) return toast.error(_(".query_error.INVALID_USERNAME"));
+    else if (!checkQueryContestId()) return toast.error(_(".query_error.INVALID_CONTEST_ID"));
 
     const query: Partial<SubmissionsQuery> = {};
     if (queryProblemId && queryProblemId.toUpperCase().startsWith("P"))
@@ -120,6 +129,7 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
       query.problemDisplayId = Number(queryProblemId);
     if (filterMySubmissions) query.submitter = appState.currentUser.username;
     else if (querySubmitter) query.submitter = querySubmitter;
+    if (queryContestId) query.contestId = Number(queryContestId);
     if (queryCodeLanguage) query.codeLanguage = queryCodeLanguage;
     if (queryStatus) query.status = queryStatus;
 
@@ -225,6 +235,16 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
             onChange={(e, { value }) => setQuerySubmitter(value)}
             onBlur={checkQuerySubmitter}
             error={querySubmitterError}
+          />
+          <Form.Input
+            className={style.queryInputContestId}
+            icon="trophy"
+            iconPosition="left"
+            placeholder={_(".query.contest_id")}
+            value={queryContestId}
+            onChange={(e, { value }) => setQueryContestId(value)}
+            onBlur={checkQueryContestId}
+            error={queryContestIdError}
           />
           <Form.Select
             className={

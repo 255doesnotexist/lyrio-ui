@@ -3,6 +3,7 @@ return {
   query: {
     problem_id: "Problem",
     submitter: "Submitter",
+    contest_id: "Contest",
     code_language: "Language",
     code_language_all: "All",
     status: "Status",
@@ -13,6 +14,7 @@ return {
   query_error: {
     INVALID_PROBLEM_ID: "Invalid problem ID.",
     INVALID_USERNAME: "Invalid username.",
+    INVALID_CONTEST_ID: "Invalid contest ID.",
     NO_SUCH_PROBLEM: "No such problem.",
     NO_SUCH_USER: "No such user."
   },

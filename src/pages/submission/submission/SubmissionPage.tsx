@@ -204,7 +204,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
   // score and status are in this meta, but we still use them in full info
   const meta: Pick<
     ApiTypes.SubmissionMetaDto,
-    "id" | "problem" | "isPublic" | "codeLanguage" | "answerSize" | "submitTime" | "problemTitle" | "submitter"
+    "id" | "problem" | "isPublic" | "codeLanguage" | "answerSize" | "submitTime" | "problemTitle" | "submitter" | "contestId" | "contestTitle"
   > = props.meta;
 
   const [progress, setProgress] = useState(props.progress);

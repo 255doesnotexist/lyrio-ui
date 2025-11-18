@@ -3,6 +3,7 @@ return {
   query: {
     problem_id: "問題",
     submitter: "提出者",
+    contest_id: "コンテスト",
     code_language: "言語",
     code_language_all: "全ての言語",
     status: "結果",
@@ -13,6 +14,7 @@ return {
   query_error: {
     INVALID_PROBLEM_ID: "問題 ID が無効です。",
     INVALID_USERNAME: "ユーザ名が無効です。",
+    INVALID_CONTEST_ID: "コンテスト ID が無効です。",
     NO_SUCH_PROBLEM: "問題が存在しません。",
     NO_SUCH_USER: "このユーザ名は存在しません。"
   },

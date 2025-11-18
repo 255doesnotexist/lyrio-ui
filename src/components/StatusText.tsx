@@ -7,6 +7,7 @@ import { SubmissionStatusAll } from "@/interfaces/SubmissionStatus";
 
 const icons: Record<SubmissionStatusAll, SemanticICONS> = {
   Pending: "hourglass half",
+  Hidden: "eye slash",
   ConfigurationError: "code",
   SystemError: "server",
   CompilationError: "code",

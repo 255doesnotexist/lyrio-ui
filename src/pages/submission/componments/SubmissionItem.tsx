@@ -14,12 +14,16 @@ import { getProblemDisplayName, getProblemIdString, getProblemUrl } from "@/page
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 
 function parseSubmissionMeta(submission: ApiTypes.SubmissionMetaDto) {
+  const problemUrl = submission.contestId
+    ? `/c/${submission.contestId}/p/${submission.problem.id}`
+    : getProblemUrl(submission.problem);
+
   return {
     submission,
     submissionLink: `/s/${submission.id}`,
     timeString: friendlyFormatDateTime(submission.submitTime),
     problemIdString: getProblemIdString(submission.problem),
-    problemUrl: getProblemUrl(submission.problem)
+    problemUrl
   };
 }
 
@@ -52,6 +56,7 @@ export const SubmissionHeader: React.FC<SubmissionHeaderProps> = props => {
         </>
       )}
       <Table.HeaderCell className={style.columnAnswer}>{_(".columns.answer")}</Table.HeaderCell>
+      <Table.HeaderCell className={style.columnContest}>{_(".columns.contest")}</Table.HeaderCell>
       <Table.HeaderCell className={style.columnSubmitTime}>{_(".columns.submit_time")}</Table.HeaderCell>
     </Table.Row>
   );
@@ -148,6 +153,13 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
           position="bottom center"
           on="hover"
         />
+      </Table.Cell>
+      <Table.Cell className={style.columnContest}>
+        {submission.contestId && submission.contestTitle ? (
+          <Link href={`/c/${submission.contestId}`}>{submission.contestTitle}</Link>
+        ) : (
+          "-"
+        )}
       </Table.Cell>
       <Table.Cell className={style.columnSubmitTime} title={timeString[1]}>
         {timeString[0]}

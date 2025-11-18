@@ -21,6 +21,11 @@ const localeMeta: Record<Locale, LocaleMeta> = {
     name: "日本語",
     flag: "jp",
     recaptchaLanguageCode: "ja"
+  },
+  [Locale.pl_PL]: {
+    name: "Polski",
+    flag: "pl",
+    recaptchaLanguageCode: "pl"
   }
 };
 

@@ -1,0 +1,53 @@
+.contestInfo {
+  margin-bottom: 20px !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+
+  h3 {
+    color: white !important;
+
+    a {
+      color: white !important;
+      text-decoration: none !important;
+
+      &:hover {
+        text-decoration: underline !important;
+      }
+    }
+
+    .sub.header {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+  }
+}
+
+.status {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: white !important;
+}
+
+.time {
+  font-size: 0.95em;
+  opacity: 0.9;
+  color: white !important;
+}
+
+.progress {
+  margin: 10px 0 !important;
+
+  :global(.bar) {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+}
+
+.contestActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+
+  button {
+    flex: 1;
+  }
+}

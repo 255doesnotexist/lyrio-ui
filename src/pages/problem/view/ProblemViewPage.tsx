@@ -102,7 +102,7 @@ export function useProblemViewMarkdownContentPatcher(problemId: number): Markdow
   };
 }
 
-async function fetchData(idType: "id" | "displayId", id: number, locale: Locale) {
+async function fetchData(idType: "id" | "displayId", id: number, locale: Locale, contestId?: number) {
   const { requestError, response } = await api.problem.getProblem({
     [idType]: id,
     localizedContentsOfLocale: locale,
@@ -113,7 +113,8 @@ async function fetchData(idType: "id" | "displayId", id: number, locale: Locale)
     statistics: true,
     discussionCount: true,
     permissionOfCurrentUser: true,
-    lastSubmissionAndLastAcceptedSubmission: true
+    lastSubmissionAndLastAcceptedSubmission: true,
+    contestId: contestId
   });
 
   if (requestError) throw new RouteError(requestError, { showRefresh: true, showBack: true });
@@ -128,6 +129,7 @@ interface ProblemViewPageProps {
   requestedLocale: Locale;
   problem: ApiTypes.GetProblemResponseDto;
   ProblemTypeView: ProblemTypeView<any>;
+  contestId?: number;
 }
 
 let ProblemViewPage: React.FC<ProblemViewPageProps> = props => {
@@ -372,7 +374,8 @@ let ProblemViewPage: React.FC<ProblemViewPageProps> = props => {
       api.submission.submit,
       {
         problemId: props.problem.meta.id,
-        content: submissionContent
+        content: submissionContent,
+        contestId: props.contestId
       },
       () => recaptcha("SubmitProblem"),
       onGetSubmitFile ? await onGetSubmitFile() : null
@@ -816,6 +819,8 @@ async function getProblemTypeView(type: ProblemType): Promise<ProblemTypeView<an
     })()
   ).default;
 }
+
+export { ProblemViewPage, fetchData, getProblemTypeView };
 
 export default {
   byId: defineRoute(async request => {
