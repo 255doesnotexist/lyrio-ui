@@ -12,6 +12,11 @@ const localeMeta: Record<Locale, LocaleMeta> = {
     flag: "cn",
     recaptchaLanguageCode: "zh-CN"
   },
+  [Locale.pl_PL]: {
+    name: "Polski",
+    flag: "pl",
+    recaptchaLanguageCode: "pl"
+  },
   [Locale.en_US]: {
     name: "English",
     flag: "us",
@@ -21,11 +26,6 @@ const localeMeta: Record<Locale, LocaleMeta> = {
     name: "日本語",
     flag: "jp",
     recaptchaLanguageCode: "ja"
-  },
-  [Locale.pl_PL]: {
-    name: "Polski",
-    flag: "pl",
-    recaptchaLanguageCode: "pl"
   }
 };
 

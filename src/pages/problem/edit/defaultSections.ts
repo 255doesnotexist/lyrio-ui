@@ -38,6 +38,39 @@ export default <Record<Locale, LocalizedContentSection[]>>{
       text: ""
     }
   ],
+  [Locale.pl_PL]: [
+    {
+      uuid: uuid(),
+      sectionTitle: "Opis",
+      type: "Text",
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Wejście",
+      type: "Text",
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Wyjście",
+      type: "Text",
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Przykład",
+      type: "Sample",
+      sampleId: 0,
+      text: ""
+    },
+    {
+      uuid: uuid(),
+      sectionTitle: "Ograniczenia i wskazówki",
+      type: "Text",
+      text: ""
+    }
+  ],
   [Locale.en_US]: [
     {
       uuid: uuid(),
@@ -100,39 +133,6 @@ export default <Record<Locale, LocalizedContentSection[]>>{
     {
       uuid: uuid(),
       sectionTitle: "制約",
-      type: "Text",
-      text: ""
-    }
-  ],
-  [Locale.pl_PL]: [
-    {
-      uuid: uuid(),
-      sectionTitle: "Opis",
-      type: "Text",
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "Wejście",
-      type: "Text",
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "Wyjście",
-      type: "Text",
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "Przykład",
-      type: "Sample",
-      sampleId: 0,
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "Ograniczenia i wskazówki",
       type: "Text",
       text: ""
     }

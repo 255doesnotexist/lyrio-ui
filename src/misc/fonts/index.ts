@@ -60,7 +60,27 @@ export const availableContentFonts = [
 
 function getFallbackFontList(locale: Locale) {
   switch (locale) {
+    case Locale.zh_CN:
+      return [
+        "Noto Sans CJK SC",
+        "Source Han Sans SC",
+        "PingFang SC",
+        "Hiragino Sans GB",
+        "Microsoft Yahei",
+        "WenQuanYi Micro Hei",
+        "Droid Sans Fallback"
+      ];
+    case Locale.pl_PL:
+    case Locale.en_US:
+      return [
+        "Segoe UI",
+        "Arial",
+        "Helvetica Neue",
+        "Helvetica",
+        "Liberation Sans"
+      ];
     case Locale.ja_JP:
+    default:
       return [
         "Noto Sans CJK JP",
         "Source Han Sans JP",
@@ -72,26 +92,6 @@ function getFallbackFontList(locale: Locale) {
         "Osaka",
         "ＭＳ Ｐゴシック",
         "MS PGothic"
-      ];
-    case Locale.pl_PL:
-    case Locale.en_US:
-      return [
-        "Segoe UI",
-        "Arial",
-        "Helvetica Neue",
-        "Helvetica",
-        "Liberation Sans"
-      ];
-    case Locale.zh_CN:
-    default:
-      return [
-        "Noto Sans CJK SC",
-        "Source Han Sans SC",
-        "PingFang SC",
-        "Hiragino Sans GB",
-        "Microsoft Yahei",
-        "WenQuanYi Micro Hei",
-        "Droid Sans Fallback"
       ];
   }
 }
