@@ -136,6 +136,10 @@ return {
   },
   security: {
     title: "セキュリティ設定",
+    password_change_required: {
+      title: "パスワード変更が必要です",
+      message: "アカウントのセキュリティのため、システムを使用する前にパスワードを変更する必要があります。"
+    },
     password: {
       header: "パスワード変更",
       old: "現在のパスワード",
@@ -217,6 +221,27 @@ return {
         notes:
           "[TBT] Submit any requests without verifying reCAPTCHA (if enabled). Useful for robots and virtual judge."
       }
+    },
+    display_settings: "表示設定",
+    hidden_from_ranking: {
+      name: "ホームページのランキングから非表示",
+      notes: "有効にすると、このユーザーはホームページのユーザーランキングリストに表示されません。"
+    },
+    actions: "アクション",
+    reset_password: {
+      title: "パスワードをリセット",
+      new_password: "新しいパスワード",
+      leave_empty_for_random: "空欄にするとランダムなパスワードが生成されます",
+      require_password_change: "次回ログイン時にパスワード変更を要求",
+      generated_password: "生成されたパスワード",
+      cancel: "キャンセル",
+      confirm: "リセットを確認",
+      success: "パスワードのリセットに成功しました",
+      success_with_generated: "ランダムパスワードでリセットに成功しました",
+      button: "ユーザーパスワードをリセット"
+    },
+    batch_import: {
+      button: "ユーザー一括インポート"
     },
     admin_only: "[TBT] Only admins can change user's privileges.",
     submit: "[TBT] Submit",

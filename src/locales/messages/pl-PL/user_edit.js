@@ -137,6 +137,10 @@ return {
   },
   security: {
     title: "Bezpieczeństwo",
+    password_change_required: {
+      title: "Wymagana zmiana hasła",
+      message: "Ze względów bezpieczeństwa konta musisz zmienić hasło przed kontynuowaniem korzystania z systemu."
+    },
     password: {
       header: "Zmień hasło",
       old: "Stare hasło",
@@ -214,6 +218,27 @@ return {
         name: "Pomiń reCAPTCHA",
         notes: "Wysyłaj wszelkie żądania bez weryfikacji reCAPTCHA (jeśli włączona). Przydatne dla robotów i wirtualnego sędziego."
       }
+    },
+    display_settings: "Ustawienia wyświetlania",
+    hidden_from_ranking: {
+      name: "Ukryj w rankingu strony głównej",
+      notes: "Po włączeniu ten użytkownik nie będzie wyświetlany na liście rankingu użytkowników na stronie głównej."
+    },
+    actions: "Akcje",
+    reset_password: {
+      title: "Zresetuj hasło",
+      new_password: "Nowe hasło",
+      leave_empty_for_random: "Pozostaw puste, aby wygenerować losowe hasło",
+      require_password_change: "Wymagaj zmiany hasła przy następnym logowaniu",
+      generated_password: "Wygenerowane hasło",
+      cancel: "Anuluj",
+      confirm: "Potwierdź reset",
+      success: "Hasło zresetowane pomyślnie",
+      success_with_generated: "Hasło zresetowane pomyślnie z automatycznie wygenerowanym hasłem",
+      button: "Zresetuj hasło użytkownika"
+    },
+    batch_import: {
+      button: "Importuj użytkowników zbiorczo"
     },
     admin_only: "Tylko administratorzy mogą zmieniać uprawnienia użytkowników.",
     submit: "Wyślij",
