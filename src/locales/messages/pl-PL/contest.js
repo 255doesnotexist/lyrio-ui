@@ -31,6 +31,7 @@ return {
   },
 
   view_ranklist: "Zobacz ranking",
+  view_full_ranklist: "Pełny ranking",
   view_submissions: "Zobacz zgłoszenia",
   problem_index: "Indeks",
   problem_title: "Zadanie",

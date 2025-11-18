@@ -31,6 +31,7 @@ return {
   },
 
   view_ranklist: "View Ranklist",
+  view_full_ranklist: "Full Ranklist",
   view_submissions: "View Submissions",
   problem_index: "Index",
   problem_title: "Problem",

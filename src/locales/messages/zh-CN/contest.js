@@ -31,6 +31,7 @@ return {
   },
 
   view_ranklist: "查看排行榜",
+  view_full_ranklist: "完整排行榜",
   view_submissions: "查看提交记录",
   problem_index: "编号",
   problem_title: "题目",

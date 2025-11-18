@@ -51,15 +51,17 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
   }, [contestId]);
 
   const renderOIRanklist = () => {
+    const isIOI = ranklist.contestType === "IOI";
+
     return (
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell width={1}>{_(".rank")}</Table.HeaderCell>
-            <Table.HeaderCell width={3}>{_(".username")}</Table.HeaderCell>
-            <Table.HeaderCell width={2}>{_(".total_score")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: '60px' }}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: '100px' }}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: '80px' }}>{_(".total_score")}</Table.HeaderCell>
             {ranklist.problemIds.map((problemId, index) => (
-              <Table.HeaderCell key={problemId} width={2}>
+              <Table.HeaderCell key={problemId} textAlign="center">
                 {String.fromCharCode(65 + index)}
               </Table.HeaderCell>
             ))}
@@ -80,10 +82,17 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
               {item.problemStatuses.map(status => (
                 <Table.Cell key={status.problemId} className={style.problemCell}>
                   {status.score !== undefined && status.score !== null ? (
-                    <span className={status.score === 100 ? style.fullScore : style.score}>
-                      {status.score}
-                      {status.score === 100 && <Icon name="check" style={{ marginLeft: '4px' }} />}
-                    </span>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <span className={status.score === 100 ? style.fullScore : style.score} style={{ fontSize: "1.2em" }}>
+                        {status.score}
+                      </span>
+                      {isIOI && status.firstAcceptTime !== undefined && status.firstAcceptTime !== null && (
+                        <span style={{ fontSize: "0.8em", color: "#999", marginTop: '2px' }}>
+                          {status.firstAcceptTime}m
+                        </span>
+                      )}
+                      {status.score === 100 && <Icon name="check" style={{ marginTop: '2px' }} />}
+                    </div>
                   ) : (
                     <span className={style.noScore}>-</span>
                   )}
@@ -101,12 +110,12 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell width={1}>{_(".rank")}</Table.HeaderCell>
-            <Table.HeaderCell width={3}>{_(".username")}</Table.HeaderCell>
-            <Table.HeaderCell width={1}>{_(".solved")}</Table.HeaderCell>
-            <Table.HeaderCell width={2}>{_(".penalty")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: '60px' }}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: '100px' }}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: '80px' }}>{_(".solved")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: '80px' }}>{_(".penalty")}</Table.HeaderCell>
             {ranklist.problemIds.map((problemId, index) => (
-              <Table.HeaderCell key={problemId} width={2}>
+              <Table.HeaderCell key={problemId} textAlign="center">
                 {String.fromCharCode(65 + index)}
               </Table.HeaderCell>
             ))}
@@ -128,19 +137,20 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
               {item.problemStatuses.map(status => (
                 <Table.Cell key={status.problemId} className={style.problemCell}>
                   {status.accepted ? (
-                    <div className={style.accepted}>
-                      <Icon name="check" />
-                      <div className={style.solveInfo}>
-                        {status.wrongAttempts > 0 && (
-                          <span className={style.wrongAttempts}>(-{status.wrongAttempts})</span>
-                        )}
-                        <span className={style.solveTime}>{status.solveTime}m</span>
-                      </div>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <span style={{ color: "#db2828", fontSize: "1.2em" }}>+</span>
+                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: '2px' }}>
+                        {status.wrongAttempts > 0 && `(-${status.wrongAttempts}) `}
+                        {status.solveTime}m
+                      </span>
                     </div>
                   ) : status.wrongAttempts > 0 ? (
-                    <div className={style.wrong}>
-                      <Icon name="times" />
-                      <span className={style.wrongCount}>(-{status.wrongAttempts})</span>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <span style={{ color: "#21ba45", fontSize: "1.2em" }}>-</span>
+                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: '2px' }}>
+                        (-{status.wrongAttempts})
+                        {status.lastSubmitTime !== undefined && status.lastSubmitTime !== null && ` ${status.lastSubmitTime}m`}
+                      </span>
                     </div>
                   ) : (
                     <span className={style.noAttempt}>-</span>

@@ -47,8 +47,7 @@ const PrevilegeView: React.FC<PrevilegeViewProps> = props => {
     const { requestError, response } = await api.user.setUserPrivileges({
       userId: props.meta.id,
       privileges: [...privileges],
-      isHiddenFromHomeRanking,
-      isBanned: props.meta.isBanned
+      isHiddenFromHomeRanking
     });
     if (requestError) toast.error(requestError(_));
     else if (response.error) toast.error(_(`user_edit.errors.${response.error}`));

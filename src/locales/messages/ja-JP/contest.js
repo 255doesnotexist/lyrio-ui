@@ -31,6 +31,7 @@ return {
   },
 
   view_ranklist: "順位表を見る",
+  view_full_ranklist: "完全な順位表",
   view_submissions: "提出一覧を見る",
   problem_index: "番号",
   problem_title: "問題",

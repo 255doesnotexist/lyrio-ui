@@ -115,6 +115,8 @@ declare namespace ApiTypes {
     accepted?: boolean;
     wrongAttempts?: number;
     solveTime?: number;
+    firstAcceptTime?: number;
+    lastSubmitTime?: number;
     status?: string;
   }
   export interface CreateContestRequestDto {
@@ -521,8 +523,8 @@ declare namespace ApiTypes {
   export interface GetUserDetailRequestDto {
     userId?: number;
     username?: string;
-    timezone: string;
-    now: string;
+    timezone?: string;
+    now?: string;
   }
   export interface GetUserDetailResponseDto {
     error?: "NO_SUCH_USER";
@@ -1214,6 +1216,7 @@ declare namespace ApiTypes {
       | "ManageDiscussion"
       | "SkipRecaptcha"
     )[];
+    isHiddenFromHomeRanking?: boolean;
   }
   export interface SetUserPrivilegesResponseDto {
     error?: "PERMISSION_DENIED" | "NO_SUCH_USER" | "FAILED";
