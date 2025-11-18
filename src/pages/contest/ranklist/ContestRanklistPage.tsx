@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { Header, Segment, Table, Icon } from "semantic-ui-react";
-import { Link } from "react-navi";
+import { Header, Segment, Table, Icon, Button } from "semantic-ui-react";
+import { Link, useCurrentRoute } from "react-navi";
 
 import { appState } from "@/appState";
 import { useLocalizer } from "@/utils/hooks";
@@ -14,14 +14,41 @@ interface ContestRanklistPageProps {
 }
 
 let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
-  const { ranklist } = props;
+  const [ranklist, setRanklist] = useState(props.ranklist);
+  const [loading, setLoading] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
   const _ = useLocalizer("contest");
+  const currentRoute = useCurrentRoute();
+  const contestId = parseInt(currentRoute.url.pathname.split("/")[2]);
 
   useEffect(() => {
     if (ranklist) {
       appState.enterNewPage(_(".ranklist_title", { title: ranklist.contestTitle }), null);
     }
   }, [ranklist]);
+
+  const fetchRanklist = async () => {
+    setLoading(true);
+    const { requestError, response } = await api.contest.getContestRanklist({
+      contestId
+    });
+    setLoading(false);
+
+    if (!requestError && response && !response.error) {
+      setRanklist(response);
+      setLastUpdate(new Date());
+    }
+  };
+
+  useEffect(() => {
+    // Set up auto-refresh every 30 seconds
+    const interval = setInterval(() => {
+      fetchRanklist();
+    }, 30000);
+
+    // Clean up on unmount
+    return () => clearInterval(interval);
+  }, [contestId]);
 
   const renderOIRanklist = () => {
     return (
@@ -127,6 +154,10 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
     );
   };
 
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString();
+  };
+
   return (
     <>
       <Header as="h1">
@@ -138,6 +169,23 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
           </Header.Subheader>
         </Header.Content>
       </Header>
+
+      <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ color: "#666", fontSize: "0.9em" }}>
+          {_(".last_update")}: {formatTime(lastUpdate)} ({_(".auto_refresh_30s")})
+        </span>
+        <Button
+          icon
+          labelPosition="left"
+          size="small"
+          onClick={fetchRanklist}
+          loading={loading}
+          disabled={loading}
+        >
+          <Icon name="refresh" />
+          {_(".refresh")}
+        </Button>
+      </div>
 
       <Segment className={style.segment}>
         {ranklist.ranklist.length === 0 ? (

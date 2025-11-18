@@ -64,6 +64,9 @@ return {
   solved: "正解数",
   penalty: "ペナルティ",
   no_ranklist_data: "順位表データがありません",
+  last_update: "最終更新",
+  auto_refresh_30s: "30秒ごとに自動更新",
+  refresh: "更新",
 
   form: {
     title: "コンテストタイトル",

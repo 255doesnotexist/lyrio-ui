@@ -64,6 +64,9 @@ return {
   solved: "Solved",
   penalty: "Penalty",
   no_ranklist_data: "No ranklist data available",
+  last_update: "Last update",
+  auto_refresh_30s: "Auto-refresh every 30s",
+  refresh: "Refresh",
 
   form: {
     title: "Contest Title",

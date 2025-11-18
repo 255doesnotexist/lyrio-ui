@@ -64,6 +64,9 @@ return {
   solved: "Rozwiązane",
   penalty: "Kara",
   no_ranklist_data: "Brak danych rankingowych",
+  last_update: "Ostatnia aktualizacja",
+  auto_refresh_30s: "Automatyczne odświeżanie co 30s",
+  refresh: "Odśwież",
 
   form: {
     title: "Tytuł konkursu",
