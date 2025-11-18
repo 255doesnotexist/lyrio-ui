@@ -64,7 +64,7 @@ let ContestListPage: React.FC<ContestListPageProps> = props => {
   return (
     <>
       <div className={style.header}>
-        <Header as="h1">
+        <Header as="h2" className={style.pageHeader}>
           <Icon name="trophy" />
           <Header.Content>{_(".contest_list")}</Header.Content>
         </Header>
@@ -76,55 +76,60 @@ let ContestListPage: React.FC<ContestListPageProps> = props => {
         )}
       </div>
 
-      <Segment className={style.segment}>
-        <Table basic="very" unstackable>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell width={6}>{_(".contest_name")}</Table.HeaderCell>
-              <Table.HeaderCell width={2}>{_(".status_label")}</Table.HeaderCell>
-              <Table.HeaderCell width={3}>{_(".start_time")}</Table.HeaderCell>
-              <Table.HeaderCell width={3}>{_(".end_time")}</Table.HeaderCell>
-              <Table.HeaderCell width={2}>{_(".type")}</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {contests.map(contest => (
-              <Table.Row key={contest.id}>
-                <Table.Cell>
-                  <Link href={`/c/${contest.id}`} className={style.contestLink}>
-                    {contest.title}
-                  </Link>
-                  {contest.description && (
-                    <div className={style.description}>{contest.description}</div>
-                  )}
-                </Table.Cell>
-                <Table.Cell>
-                  <span className={style[getContestStatusColor(contest.startTime, contest.endTime)]}>
-                    {getContestStatus(contest.startTime, contest.endTime)}
-                  </span>
-                </Table.Cell>
-                <Table.Cell>{formatDateTime(contest.startTime)[1]}</Table.Cell>
-                <Table.Cell>{formatDateTime(contest.endTime)[1]}</Table.Cell>
-                <Table.Cell>{contest.type}</Table.Cell>
+      {contests.length === 0 ? (
+        <Segment placeholder>
+          <Header icon>
+            <Icon name="trophy" />
+            {_(".no_contest")}
+          </Header>
+        </Segment>
+      ) : (
+        <>
+          <Table basic="very" unstackable className={style.table}>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell width={6}>{_(".contest_name")}</Table.HeaderCell>
+                <Table.HeaderCell width={2}>{_(".status_label")}</Table.HeaderCell>
+                <Table.HeaderCell width={3}>{_(".start_time")}</Table.HeaderCell>
+                <Table.HeaderCell width={3}>{_(".end_time")}</Table.HeaderCell>
+                <Table.HeaderCell width={2}>{_(".type")}</Table.HeaderCell>
               </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+            </Table.Header>
+            <Table.Body>
+              {contests.map(contest => (
+                <Table.Row key={contest.id}>
+                  <Table.Cell>
+                    <Link href={`/c/${contest.id}`} className={style.contestLink}>
+                      {contest.title}
+                    </Link>
+                    {contest.description && (
+                      <div className={style.description}>{contest.description}</div>
+                    )}
+                  </Table.Cell>
+                  <Table.Cell>
+                    <span className={style[getContestStatusColor(contest.startTime, contest.endTime)]}>
+                      {getContestStatus(contest.startTime, contest.endTime)}
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>{formatDateTime(contest.startTime)[1]}</Table.Cell>
+                  <Table.Cell>{formatDateTime(contest.endTime)[1]}</Table.Cell>
+                  <Table.Cell>{contest.type}</Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
 
-        {totalPages > 1 && (
-          <div className={style.pagination}>
-            <Pagination
-              activePage={currentPage}
-              totalPages={totalPages}
-              onPageChange={(e, { activePage }) => onPageChange(activePage as number)}
-            />
-          </div>
-        )}
-
-        {contests.length === 0 && (
-          <div className={style.noContest}>{_(".no_contest")}</div>
-        )}
-      </Segment>
+          {totalPages > 1 && (
+            <div className={style.pagination}>
+              <Pagination
+                activePage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(e, { activePage }) => onPageChange(activePage as number)}
+              />
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 };
