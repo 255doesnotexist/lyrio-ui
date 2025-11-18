@@ -4,7 +4,7 @@ return {
   username: "ユーザ名",
   email: "メールアドレス",
   send_email_verification_code: "確認コードを送信",
-  email_verification_code_sent: "[TBT] Email verification code sent.",
+  email_verification_code_sent: "メール確認コードを送信しました。",
   email_verification_code: "確認コード",
   password: "パスワード",
   retype_password: "パスワードの再入力",
@@ -17,7 +17,7 @@ return {
   empty_email: "メールアドレスを入力してください",
   invalid_email: "無効なメールアドレスです",
   email_already_used: "このメールアドレスはすでに使用されています",
-  invalid_email_verification_code: "[TBT] Invalid email verification code.",
+  invalid_email_verification_code: "無効なメール確認コードです。",
   empty_password: "パスワードを入力してください",
   invalid_password: "パスワードの長さは 6 文字から 32 文字にしてください",
   passwords_do_not_match: "パスワードが一致しません",
@@ -29,9 +29,9 @@ return {
     ALREADY_LOGGEDIN: "すでにログインしています。",
     DUPLICATE_USERNAME: "このユーザ名はすでに存在します。",
     DUPLICATE_EMAIL: "このメールアドレスはすでに使用されています。",
-    INVALID_EMAIL_VERIFICATION_CODE: "[TBT] Invalid email verification code.",
-    FAILED_TO_SEND: "[TBT] Failed to send mail: {errorMessage}",
-    RATE_LIMITED: "[TBT] Your operations are too frequent. Please try again later."
+    INVALID_EMAIL_VERIFICATION_CODE: "無効なメール確認コードです。",
+    FAILED_TO_SEND: "メール送信に失敗しました：{errorMessage}",
+    RATE_LIMITED: "操作が頻繁すぎます。しばらく待ってからもう一度お試しください。"
   },
   success: "新規登録ができました，{username} さん！"
 };
