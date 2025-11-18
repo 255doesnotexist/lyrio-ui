@@ -19,7 +19,7 @@ return {
     operations: "Operations",
     add: "Add annnouncement"
   },
-  hitokoto: "Hitokoto",
+  hitokoto: "Yiyan",
   countdown: "Countdown",
   friend_links: "Friend Links",
   submit: "Submit",

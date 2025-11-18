@@ -14,8 +14,8 @@ return {
     no_problems: "No Problems"
   },
   hitokoto: {
-    header: "Hitokoto (ヒトコト)",
-    error: "Error loading Hitokoto.",
+    header: "Yiyan",
+    error: "Error loading Yiyan.",
     refresh: "Refresh"
   },
   countdown: {

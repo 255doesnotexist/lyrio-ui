@@ -175,7 +175,7 @@ let AppLayout: React.FC = props => {
       <Segment vertical className={className}>
         <Container textAlign="center">
           <EmojiRenderer>
-            <div>{appState.serverPreference.siteName} Powered by Lyrio</div>
+            <div>{appState.serverPreference.siteName} Powered by Lyrio Maintained by Jin Chenye</div>
           </EmojiRenderer>
           <div id={style.footerVersion} className="monospace">
             <span>

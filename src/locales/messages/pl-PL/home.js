@@ -14,8 +14,8 @@ return {
     no_problems: "Brak zadań"
   },
   hitokoto: {
-    header: "Hitokoto (ヒトコト)",
-    error: "Błąd wczytywania Hitokoto.",
+    header: "Yiyan",
+    error: "Błąd wczytywania Yiyan.",
     refresh: "Odśwież"
   },
   countdown: {

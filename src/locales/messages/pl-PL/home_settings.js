@@ -19,7 +19,7 @@ return {
     operations: "Operacje",
     add: "Dodaj ogłoszenie"
   },
-  hitokoto: "Hitokoto",
+  hitokoto: "Yiyan",
   countdown: "Odliczanie",
   friend_links: "Linki przyjaciół",
   submit: "Wyślij",

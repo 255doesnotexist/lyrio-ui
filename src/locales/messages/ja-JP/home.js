@@ -14,9 +14,9 @@ return {
     no_problems: "[TBT] No Problems"
   },
   hitokoto: {
-    header: "[TBT] Hitokoto (ヒトコト)",
-    error: "[TBT] Error loading Hitokoto.",
-    refresh: "[TBT] Refresh"
+    header: "Hitokoto",
+    error: "Hitokotoの読み込みエラー。",
+    refresh: "更新"
   },
   countdown: {
     header: "[TBT] Countdown",

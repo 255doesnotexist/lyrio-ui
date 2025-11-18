@@ -19,7 +19,7 @@ return {
     operations: "[TBT] Operations",
     add: "[TBT] Add annnouncement"
   },
-  hitokoto: "[TBT] Hitokoto",
+  hitokoto: "Hitokoto",
   countdown: "[TBT] Countdown",
   friend_links: "[TBT] Friend Links",
   submit: "[TBT] Submit",
