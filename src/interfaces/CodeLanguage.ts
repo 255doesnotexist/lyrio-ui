@@ -58,7 +58,7 @@ export const compileAndRunOptions: Record<CodeLanguage, CodeLanguageOption[]> = 
     {
       name: "std",
       type: CodeLanguageOptionType.Select,
-      values: ["c++03", "c++11", "c++14", "c++17", "c++20", "gnu++03", "gnu++11", "gnu++14", "gnu++17", "gnu++20"],
+      values: ["c++03", "c++11", "c++14", "c++17", "gnu++03", "gnu++11", "gnu++14", "gnu++17"],
       defaultValue: "c++11"
     },
     {
@@ -84,8 +84,8 @@ export const compileAndRunOptions: Record<CodeLanguage, CodeLanguageOption[]> = 
     {
       name: "std",
       type: CodeLanguageOptionType.Select,
-      values: ["c89", "c99", "c11", "c17", "gnu89", "gnu99", "gnu11", "gnu17"],
-      defaultValue: "c11"
+      values: ["c89", "c99", "gnu89", "gnu99"],
+      defaultValue: "c99"
     },
     {
       name: "O",
@@ -105,8 +105,8 @@ export const compileAndRunOptions: Record<CodeLanguage, CodeLanguageOption[]> = 
     {
       name: "version",
       type: CodeLanguageOptionType.Select,
-      values: ["1.5", "1.6", "1.7", "1.8", "1.9"],
-      defaultValue: "1.8"
+      values: ["1.5"],
+      defaultValue: "1.5"
     },
     {
       name: "platform",
@@ -127,16 +127,16 @@ export const compileAndRunOptions: Record<CodeLanguage, CodeLanguageOption[]> = 
     {
       name: "version",
       type: CodeLanguageOptionType.Select,
-      values: ["2.7", "3.9", "3.10"],
-      defaultValue: "3.10"
+      values: ["2.7", "3.9"],
+      defaultValue: "3.9"
     }
   ],
   [CodeLanguage.Rust]: [
     {
       name: "version",
       type: CodeLanguageOptionType.Select,
-      values: ["2015", "2018", "2021"],
-      defaultValue: "2021"
+      values: ["2015", "2018"],
+      defaultValue: "2018"
     },
     {
       name: "optimize",
@@ -149,7 +149,7 @@ export const compileAndRunOptions: Record<CodeLanguage, CodeLanguageOption[]> = 
     {
       name: "version",
       type: CodeLanguageOptionType.Select,
-      values: ["4.2", "5", "6"],
+      values: ["4.2", "5"],
       defaultValue: "5"
     },
     {
@@ -179,8 +179,8 @@ export const compileAndRunOptions: Record<CodeLanguage, CodeLanguageOption[]> = 
     {
       name: "version",
       type: CodeLanguageOptionType.Select,
-      values: ["7.3", "8", "9"],
-      defaultValue: "9"
+      values: ["7.3", "8"],
+      defaultValue: "8"
     }
   ],
   [CodeLanguage.FSharp]: []

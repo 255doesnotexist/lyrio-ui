@@ -12,6 +12,8 @@ return {
   submit_time: "Czas wysłania",
   compilation_message: "Informacja o kompilacji",
   system_message: "Komunikat systemowy",
+  code_hidden: "Kod jest ukryty.",
+  answer_hidden: "Odpowiedź jest ukryta.",
   sample_testcases: "Przykładowe przypadki testowe",
   sample_testcases_not_available: "Przykładowe przypadki testowe nie są dostępne.",
   subtasks: "Podzadania",

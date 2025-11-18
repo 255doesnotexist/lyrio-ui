@@ -24,6 +24,8 @@ return {
   failed_to_format: "格式化代码出错：{error}",
   format_code: "格式化代码",
   show_original_code: "显示原始代码",
+  code_hidden: "代码已隐藏。",
+  answer_hidden: "答案已隐藏。",
   compilation_message: "编译信息",
   system_message: "系统信息",
   sample: "样例",

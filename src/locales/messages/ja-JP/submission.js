@@ -24,6 +24,8 @@ return {
   failed_to_format: "コードのフォーマットに失敗しました：{error}",
   format_code: "コードをフォーマットする",
   show_original_code: "オリジナルを表示",
+  code_hidden: "コードは非表示です。",
+  answer_hidden: "答案は非表示です。",
   compilation_message: "コンパイルメッセージ",
   system_message: "システムメッセージ",
   sample: "サンプル",

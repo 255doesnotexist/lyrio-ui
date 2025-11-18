@@ -1,4 +1,5 @@
 import React from "react";
+import { Message } from "semantic-ui-react";
 
 import style from "../SubmissionPage.module.less";
 
@@ -39,6 +40,23 @@ type InteractionProblemSubmissionViewProps = ProblemTypeSubmissionViewProps<
 const InteractionProblemSubmissionView: React.FC<InteractionProblemSubmissionViewProps> = props => {
   const _ = useLocalizer("submission");
 
+  // If content is null, the code is hidden
+  if (!props.content) {
+    return (
+      <>
+        <Message warning>
+          {_(".code_hidden")}
+        </Message>
+        {props.getSubtasksView(testcaseResult => (
+          <OmittableAnsiCodeBox
+            title={_(".testcase.interactor_message")}
+            ansiMessage={testcaseResult.interactorMessage}
+          />
+        ))}
+      </>
+    );
+  }
+
   return (
     <>
       <FormattableCodeBox
@@ -60,6 +78,7 @@ const InteractionProblemSubmissionView: React.FC<InteractionProblemSubmissionVie
 
 const helper: ProblemTypeSubmissionViewHelper<SubmissionContentInteraction> = {
   getAnswerInfo(content, _) {
+    if (!content) return null;
     const entires = Object.entries(content.compileAndRunOptions);
     return entires.length ? (
       <>
@@ -79,6 +98,7 @@ const helper: ProblemTypeSubmissionViewHelper<SubmissionContentInteraction> = {
     ) : null;
   },
   getHighlightLanguageList(content) {
+    if (!content) return [];
     return [content.language];
   }
 };
