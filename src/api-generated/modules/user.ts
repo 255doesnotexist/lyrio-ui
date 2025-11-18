@@ -15,6 +15,19 @@ export const setUserPrivileges = createPostApi<
   ApiTypes.SetUserPrivilegesRequestDto,
   ApiTypes.SetUserPrivilegesResponseDto
 >("user/setUserPrivileges", false);
+export const setUserAdmin = createPostApi<ApiTypes.SetUserAdminRequestDto, ApiTypes.SetUserAdminResponseDto>(
+  "user/setUserAdmin",
+  false
+);
+export const banUser = createPostApi<ApiTypes.BanUserRequestDto, ApiTypes.BanUserResponseDto>("user/banUser", false);
+export const batchImportUsers = createPostApi<
+  ApiTypes.BatchImportUsersRequestDto,
+  ApiTypes.BatchImportUsersResponseDto
+>("user/batchImportUsers", false);
+export const resetUserPassword = createPostApi<
+  ApiTypes.ResetUserPasswordRequestDto,
+  ApiTypes.ResetUserPasswordResponseDto
+>("user/resetUserPassword", false);
 export const updateUserProfile = createPostApi<
   ApiTypes.UpdateUserProfileRequestDto,
   ApiTypes.UpdateUserProfileResponseDto
@@ -55,3 +68,7 @@ export const updateUserSelfEmail = createPostApi<
   ApiTypes.UpdateUserSelfEmailRequestDto,
   ApiTypes.UpdateUserSelfEmailResponseDto
 >("user/updateUserSelfEmail", false);
+export const getUserRatingHistory = createPostApi<
+  ApiTypes.GetUserRatingHistoryRequestDto,
+  ApiTypes.GetUserRatingHistoryResponseDto
+>("user/getUserRatingHistory", false);

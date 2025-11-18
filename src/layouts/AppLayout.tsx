@@ -138,6 +138,12 @@ let AppLayout: React.FC = props => {
             {_(".header.user.groups")}
           </Dropdown.Item>
         )}
+        {appState.currentUser.isAdmin && (
+          <Dropdown.Item as={Link} href="/admin">
+            <Icon name="shield" />
+            {_(".header.user.admin_panel")}
+          </Dropdown.Item>
+        )}
         {Dropdown === Dropdown && <Dropdown.Divider />}
         <Dropdown.Item as={Link} href={`/u/${appState.currentUser.username}/edit/profile`}>
           <Icon name="edit" />

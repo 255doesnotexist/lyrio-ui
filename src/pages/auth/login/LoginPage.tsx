@@ -214,12 +214,20 @@ let LoginPage: React.FC = () => {
           appState.token = token;
 
           {
-            setSuccess(_(".welcome", { username: refNewUsername.current || response.username }));
+            const username = refNewUsername.current || response.username;
 
-            setTimeout(async () => {
+            // Check if password change is required
+            if (response.requirePasswordChange) {
               await refreshSession();
-              redirect();
-            }, 1000);
+              navigation.navigate(`/u/${username}/edit/security?requirePasswordChange=true`);
+            } else {
+              setSuccess(_(".welcome", { username }));
+
+              setTimeout(async () => {
+                await refreshSession();
+                redirect();
+              }, 1000);
+            }
           }
 
           return;

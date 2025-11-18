@@ -39,7 +39,7 @@ let UserEditPage: React.FC<UserEditPageProps> = props => {
   const isEditingCurrentUser = useMemo(() => props.username === appState.currentUser?.username, []);
 
   const showPrivilegeTab =
-    appState.currentUserPrivileges.length > 0 || appState.currentUser.isAdmin || props.type === EditType.Privilege;
+    appState.currentUserPrivileges.length > 0 || appState.currentUser?.isAdmin || props.type === EditType.Privilege;
 
   // If username is changed, navigate to the new url
   function onChangeUsername(newUsername: string) {

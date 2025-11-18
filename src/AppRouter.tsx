@@ -123,6 +123,7 @@ const AppRouter: React.FC = () => {
           "/user": getRoute(() => import("./pages/user"), "user"),
           "/groups": getRoute(() => import("./pages/user"), "groups"),
           "/d": getRoute(() => import("./pages/discussion"), "d"),
+          "/admin": getRoute(() => import("./pages/admin"), "admin"),
           "/judge-machine": lazy(() => import("./pages/judge-machine")),
           ...legacyRoutes({
             "/problem": getRoute(() => import("./pages/problem"), "problem"),

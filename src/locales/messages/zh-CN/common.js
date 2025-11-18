@@ -16,6 +16,7 @@ return {
       problems: "我的题目",
       discussions: "我的讨论",
       groups: "我的用户组",
+      admin_panel: "后台面板",
       edit_profile: "编辑资料",
       preference: "偏好设置",
       logout: "注销"

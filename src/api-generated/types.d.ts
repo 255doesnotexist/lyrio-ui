@@ -32,6 +32,36 @@ declare namespace ApiTypes {
   export interface AddUserToGroupResponseDto {
     error?: "PERMISSION_DENIED" | "NO_SUCH_USER" | "NO_SUCH_GROUP" | "USER_ALREADY_IN_GROUP";
   }
+  export interface BanUserRequestDto {
+    userId: number;
+    isBanned: boolean;
+    banReason?: string;
+  }
+  export interface BanUserResponseDto {
+    error?: "PERMISSION_DENIED" | "NO_SUCH_USER" | "CANNOT_BAN_ADMIN";
+  }
+  export interface BatchImportUsersRequestDto {
+    /**
+     * CSV content with format: username,email,password (one user per line, no header row)
+     */
+    csvContent: string;
+    /**
+     * Whether imported users should be required to change password on first login
+     */
+    requirePasswordChange: boolean;
+  }
+  export interface BatchImportUsersResponseDto {
+    error?: "PERMISSION_DENIED" | "INVALID_CSV_FORMAT" | "DUPLICATE_USERNAME" | "DUPLICATE_EMAIL";
+    importedUsers?: {}[];
+    successCount?: number;
+    failureCount?: number;
+  }
+  export interface CalculateContestRatingRequestDto {
+    contestId: number;
+  }
+  export interface CalculateContestRatingResponseDto {
+    error?: "NO_SUCH_CONTEST" | "PERMISSION_DENIED" | "CONTEST_NOT_ENDED";
+  }
   export interface CancelSubmissionRequestDto {
     submissionId: number;
   }
@@ -266,7 +296,7 @@ declare namespace ApiTypes {
     tags?: ApiTypes.ProblemTagWithAllLocalesDto[];
   }
   export interface GetAllProblemTagsRequestDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
   }
   export interface GetAllProblemTagsResponseDto {
     tags: ApiTypes.LocalizedProblemTagDto[];
@@ -311,7 +341,7 @@ declare namespace ApiTypes {
     problemIds?: number[];
   }
   export interface GetDiscussionAndRepliesRequestDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     discussionId: number;
     /**
      * `HeadTail` is for the first query of a discussion page while `IdRange` is for loading the ramaining.
@@ -367,7 +397,7 @@ declare namespace ApiTypes {
   export interface GetDiscussionAndRepliesResponseProblemDto {
     meta: ApiTypes.ProblemMetaDto;
     title: string;
-    titleLocale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    titleLocale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
   }
   export interface GetDiscussionPermissionsRequestDto {
     id: number;
@@ -398,9 +428,9 @@ declare namespace ApiTypes {
   }
   export interface GetHomepageResponseDto {
     notice: string;
-    noticeLocale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    noticeLocale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     annnouncements: ApiTypes.DiscussionMetaDto[];
-    annnouncementsLocale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    annnouncementsLocale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     hitokoto?: ApiTypes.HomepageSettingsHitokoto;
     countdown?: ApiTypes.HomepageSettingsCountdown;
     friendLinks?: ApiTypes.HomepageSettingsFriendLinks;
@@ -421,10 +451,10 @@ declare namespace ApiTypes {
     id?: number;
     displayId?: number;
     owner?: boolean;
-    localizedContentsOfLocale?: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    localizedContentsOfLocale?: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     localizedContentsTitleOnly?: boolean;
     localizedContentsOfAllLocales?: boolean;
-    tagsOfLocale?: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    tagsOfLocale?: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     tagsOfAllLocales?: boolean;
     samples?: boolean;
     judgeInfo?: boolean;
@@ -468,22 +498,14 @@ declare namespace ApiTypes {
   export interface GetSessionInfoResponseDto {
     userMeta?: ApiTypes.UserMetaDto;
     joinedGroupsCount?: number;
-    userPrivileges?: (
-      | "EditHomepage"
-      | "ManageUser"
-      | "ManageUserGroup"
-      | "ManageProblem"
-      | "ManageContest"
-      | "ManageDiscussion"
-      | "SkipRecaptcha"
-    )[];
+    userPrivileges?: any[][];
     userPreference?: ApiTypes.UserPreferenceDto;
     serverPreference: ApiTypes.PreferenceConfig;
     serverVersion: ApiTypes.ServerVersionDto;
   }
   export interface GetSubmissionDetailRequestDto {
     submissionId: string;
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
   }
   export interface GetSubmissionDetailResponseDto {
     error?: "NO_SUCH_SUBMISSION" | "PERMISSION_DENIED";
@@ -558,6 +580,13 @@ declare namespace ApiTypes {
     avatarInfo?: string;
     information?: ApiTypes.UserInformationDto;
   }
+  export interface GetUserRatingHistoryRequestDto {
+    userId: number;
+  }
+  export interface GetUserRatingHistoryResponseDto {
+    error?: "NO_SUCH_USER";
+    ratingHistory?: ApiTypes.RatingChangeDto[];
+  }
   export interface GetUserSecuritySettingsRequestDto {
     userId?: number;
     username?: string;
@@ -629,7 +658,7 @@ declare namespace ApiTypes {
     id: number;
     name: string;
     color: string;
-    nameLocale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    nameLocale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
   }
   export interface LoginRequestDto {
     /**
@@ -640,9 +669,17 @@ declare namespace ApiTypes {
     password: string;
   }
   export interface LoginResponseDto {
-    error?: "ALREADY_LOGGEDIN" | "NO_SUCH_USER" | "WRONG_PASSWORD" | "USER_NOT_MIGRATED";
+    error?:
+      | "ALREADY_LOGGEDIN"
+      | "NO_SUCH_USER"
+      | "WRONG_PASSWORD"
+      | "USER_NOT_MIGRATED"
+      | "USER_BANNED"
+      | "PASSWORD_CHANGE_REQUIRED";
     token?: string;
     username?: string;
+    banReason?: string;
+    requirePasswordChange?: boolean;
   }
   export interface MigrateUserRequestDto {
     email?: string;
@@ -659,7 +696,7 @@ declare namespace ApiTypes {
     export type Email = string;
     export type GroupId = string;
     export type Jsonp = string;
-    export type Locale = "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    export type Locale = "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     export type MaintainceKey = string;
     export type Query = string;
     export type Token = string;
@@ -739,7 +776,7 @@ declare namespace ApiTypes {
     lastAcceptedSubmission?: ApiTypes.SubmissionBasicMetaDto;
   }
   export interface ProblemLocalizedContentDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     title: string;
     contentSections: ApiTypes.ProblemContentSectionDto[];
   }
@@ -750,7 +787,7 @@ declare namespace ApiTypes {
     isPublic: boolean;
     publicTime: string; // date-time
     ownerId: number;
-    locales: ("en_US" | "zh_CN" | "ja_JP" | "pl_PL")[];
+    locales: ("zh_CN" | "pl_PL" | "en_US" | "ja_JP")[];
     submissionCount?: number;
     acceptedSubmissionCount?: number;
   }
@@ -769,7 +806,7 @@ declare namespace ApiTypes {
   }
   export interface ProblemTagLocalizedNameDto {
     name: string;
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
   }
   export interface ProblemTagWithAllLocalesDto {
     id?: number;
@@ -790,7 +827,7 @@ declare namespace ApiTypes {
     ip?: string;
     firstObjectId?: number;
     secondObjectId?: number;
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     skipCount: number;
     takeCount: number;
   }
@@ -814,7 +851,7 @@ declare namespace ApiTypes {
     details?: {};
   }
   export interface QueryDiscussionsRequestDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     keyword?: string;
     /**
      * `null` for global. `-1` for ALL problems.
@@ -849,13 +886,13 @@ declare namespace ApiTypes {
   export interface QueryDiscussionsResponseProblemDto {
     meta: ApiTypes.ProblemMetaDto;
     title: string;
-    titleLocale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    titleLocale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
   }
   export interface QueryParameters {
     locale: ApiTypes.Parameters.Locale;
   }
   export interface QueryProblemSetRequestDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     keyword?: string;
     /**
      * The result item by ID may NOT be included in the count.
@@ -883,7 +920,7 @@ declare namespace ApiTypes {
     meta: ApiTypes.ProblemMetaDto;
     title: string;
     tags?: ApiTypes.LocalizedProblemTagDto[];
-    resultLocale?: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    resultLocale?: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     submission?: ApiTypes.SubmissionBasicMetaDto;
   }
   export interface QueryProblemSetResponsePermissionDto {
@@ -893,7 +930,7 @@ declare namespace ApiTypes {
     filterNonpublic?: boolean;
   }
   export interface QuerySubmissionRequestDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     problemId: number;
     problemDisplayId: number;
     submitter: string;
@@ -927,7 +964,7 @@ declare namespace ApiTypes {
     progressSubscriptionKey?: string;
   }
   export interface QuerySubmissionStatisticsRequestDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     problemId?: number;
     problemDisplayId?: number;
     statisticsType: "Fastest" | "MinMemory" | "MinAnswerSize" | "Earliest";
@@ -948,6 +985,16 @@ declare namespace ApiTypes {
     error?: "ALREADY_LOGGEDIN" | "NO_SUCH_USER";
     migrated?: boolean;
     usernameMustChange?: boolean;
+  }
+  export interface RatingChangeDto {
+    contestId: number;
+    contestTitle: string;
+    time: string; // date-time
+    oldRating: number;
+    newRating: number;
+    ratingChange: number;
+    rank: number;
+    participantCount: number;
   }
   export interface RegisterContestRequestDto {
     contestId: number;
@@ -1024,6 +1071,15 @@ declare namespace ApiTypes {
     error?: "ALREADY_LOGGEDIN" | "NO_SUCH_USER" | "INVALID_EMAIL_VERIFICATION_CODE";
     token?: string;
   }
+  export interface ResetUserPasswordRequestDto {
+    userId: number;
+    newPassword?: string;
+    requirePasswordChange?: boolean;
+  }
+  export interface ResetUserPasswordResponseDto {
+    error?: "PERMISSION_DENIED" | "NO_SUCH_USER";
+    generatedPassword?: string;
+  }
   namespace Responses {
     export type $200 = ApiTypes.GetHomepageSettingsResponseDto;
     export type $201 = ApiTypes.UpdateHomepageSettingsResponseDto;
@@ -1047,7 +1103,7 @@ declare namespace ApiTypes {
   export interface SendEmailVerificationCodeRequestDto {
     email: string;
     type: "Register" | "ChangeEmail" | "ResetPassword";
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
   }
   export interface SendEmailVerificationCodeResponseDto {
     error?:
@@ -1139,6 +1195,13 @@ declare namespace ApiTypes {
   }
   export interface SetSubmissionPublicResponseDto {
     error?: "NO_SUCH_SUBMISSION" | "PERMISSION_DENIED";
+  }
+  export interface SetUserAdminRequestDto {
+    userId: number;
+    isAdmin: boolean;
+  }
+  export interface SetUserAdminResponseDto {
+    error?: "PERMISSION_DENIED" | "NO_SUCH_USER" | "CANNOT_MODIFY_OWNER";
   }
   export interface SetUserPrivilegesRequestDto {
     userId: number;
@@ -1294,7 +1357,7 @@ declare namespace ApiTypes {
     judgeInfoError?: string[];
   }
   export interface UpdateProblemRequestUpdatingLocalizedContentDto {
-    locale: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    locale: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     title: string;
     contentSections: ApiTypes.ProblemContentSectionDto[];
   }
@@ -1370,6 +1433,9 @@ declare namespace ApiTypes {
     bio: string;
     avatar: ApiTypes.UserAvatarDto;
     isAdmin: boolean;
+    isOwner: boolean;
+    isBanned: boolean;
+    banReason: string;
     acceptedProblemCount: number;
     submissionCount: number;
     rating: number;
@@ -1399,8 +1465,8 @@ declare namespace ApiTypes {
     markdownEditorFont?: "content" | "code";
   }
   export interface UserPreferenceLocaleDto {
-    system?: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
-    content?: "en_US" | "zh_CN" | "ja_JP" | "pl_PL";
+    system?: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
+    content?: "zh_CN" | "pl_PL" | "en_US" | "ja_JP";
     hideUnavailableMessage?: boolean;
   }
   export interface UserSessionDto {

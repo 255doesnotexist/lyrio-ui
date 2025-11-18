@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Header, Button, Input, Segment, Icon, SegmentGroup, Label, Popup } from "semantic-ui-react";
+import { Header, Button, Input, Segment, Icon, SegmentGroup, Label, Popup, Message } from "semantic-ui-react";
 import { observer } from "mobx-react";
 import { isEmail } from "class-validator";
 import { UAParser } from "ua-parser-js";
 import * as timeago from "timeago.js";
+import { useCurrentRoute } from "react-navi";
 
 import style from "./UserEdit.module.less";
 
@@ -40,6 +41,8 @@ interface SecurityViewProps {
 
 const SecurityView: React.FC<SecurityViewProps> = props => {
   const _ = useLocalizer("user_edit.security");
+  const currentRoute = useCurrentRoute();
+  const requirePasswordChange = currentRoute.url.query.requirePasswordChange === "true";
 
   useEffect(() => {
     appState.enterNewPage(`${_(`.title`)} - ${props.meta.username}`, null, false);
@@ -213,6 +216,15 @@ const SecurityView: React.FC<SecurityViewProps> = props => {
 
   return (
     <>
+      {requirePasswordChange && (
+        <Message warning icon>
+          <Icon name="warning sign" />
+          <Message.Content>
+            <Message.Header>{_(".password_change_required.title")}</Message.Header>
+            <p>{_(".password_change_required.message")}</p>
+          </Message.Content>
+        </Message>
+      )}
       <form>
         <Header className={style.sectionHeader} size="large" content={_(".password.header")} />
         <input readOnly type="text" hidden autoComplete="username" value={props.meta.username} />

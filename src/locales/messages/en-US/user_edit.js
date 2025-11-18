@@ -137,6 +137,10 @@ return {
   },
   security: {
     title: "Security",
+    password_change_required: {
+      title: "Password Change Required",
+      message: "For your account security, you must change your password before continuing to use the system."
+    },
     password: {
       header: "Change password",
       old: "Old password",
@@ -214,6 +218,27 @@ return {
         name: "Skip reCAPTCHA",
         notes: "Submit any requests without verifying reCAPTCHA (if enabled). Useful for robots and virtual judge."
       }
+    },
+    display_settings: "Display Settings",
+    hidden_from_ranking: {
+      name: "Hide from homepage ranking",
+      notes: "When enabled, this user will not appear in the homepage user ranking list."
+    },
+    actions: "Actions",
+    reset_password: {
+      title: "Reset Password",
+      new_password: "New Password",
+      leave_empty_for_random: "Leave empty for auto-generated random password",
+      require_password_change: "Require password change on next login",
+      generated_password: "Generated Password",
+      cancel: "Cancel",
+      confirm: "Confirm Reset",
+      success: "Password reset successfully",
+      success_with_generated: "Password reset successfully with auto-generated password",
+      button: "Reset User Password"
+    },
+    batch_import: {
+      button: "Batch Import Users"
     },
     admin_only: "Only admins can change user's privileges.",
     submit: "Submit",

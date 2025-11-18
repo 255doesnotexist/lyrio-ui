@@ -16,6 +16,7 @@ return {
       problems: "自分の問題",
       discussions: "[TBT] My discussions",
       groups: "[TBT] My groups",
+      admin_panel: "管理パネル",
       edit_profile: "プロファイル設定",
       preference: "環境設定",
       logout: "ログアウト"

@@ -16,6 +16,7 @@ return {
       problems: "Moje zadania",
       discussions: "Moje dyskusje",
       groups: "Moje grupy",
+      admin_panel: "Panel administracyjny",
       edit_profile: "Edytuj profil",
       preference: "Preferencje",
       logout: "Wyloguj się"

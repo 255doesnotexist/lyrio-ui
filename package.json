@@ -58,6 +58,7 @@
     "browserslist-generator": "^1.0.66",
     "chart.js": "^3.8.2",
     "class-validator": "^0.13.2",
+    "recharts": "^2.5.0",
     "css": "^3.0.0",
     "css-element-queries": "^1.2.3",
     "css-url-relative-plugin": "^1.1.0",

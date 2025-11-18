@@ -36,3 +36,7 @@ export const unregisterContest = createPostApi<
   ApiTypes.UnregisterContestRequestDto,
   ApiTypes.UnregisterContestResponseDto
 >("contest/unregisterContest", false);
+export const calculateContestRating = createPostApi<
+  ApiTypes.CalculateContestRatingRequestDto,
+  ApiTypes.CalculateContestRatingResponseDto
+>("contest/calculateContestRating", false);

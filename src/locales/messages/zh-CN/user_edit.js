@@ -134,6 +134,10 @@ return {
   },
   security: {
     title: "安全",
+    password_change_required: {
+      title: "需要修改密码",
+      message: "为了账户安全，您需要修改密码后才能继续使用系统。"
+    },
     password: {
       header: "修改密码",
       old: "旧密码",
@@ -210,6 +214,27 @@ return {
         name: "跳过 reCAPTCHA",
         notes: "可以在不验证 reCAPTCHA（如果已启用）的情况下提交任意请求。适用于机器人或虚拟评测。"
       }
+    },
+    display_settings: "显示设置",
+    hidden_from_ranking: {
+      name: "从首页排行榜隐藏",
+      notes: "启用后，该用户将不会出现在首页的用户排行榜中。"
+    },
+    actions: "操作",
+    reset_password: {
+      title: "重设密码",
+      new_password: "新密码",
+      leave_empty_for_random: "留空则自动生成随机密码",
+      require_password_change: "要求用户下次登录时修改密码",
+      generated_password: "生成的密码",
+      cancel: "取消",
+      confirm: "确认重设",
+      success: "密码重设成功",
+      success_with_generated: "密码重设成功，已生成随机密码",
+      button: "重设用户密码"
+    },
+    batch_import: {
+      button: "批量导入用户"
     },
     admin_only: "仅管理员可修改用户特权。",
     submit: "提交",
