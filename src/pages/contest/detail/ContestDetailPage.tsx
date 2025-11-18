@@ -24,6 +24,9 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
   const [now, setNow] = useState(new Date());
   const [isRegistered, setIsRegistered] = useState(contest.isRegistered);
   const [registrationPending, setRegistrationPending] = useState(false);
+  const [ranklist, setRanklist] = useState<ApiTypes.GetContestRanklistResponseDto | null>(null);
+  const [ranklistLoading, setRanklistLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
     if (contest) {
@@ -130,6 +133,138 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
     return now < start;
   };
 
+  const fetchRanklist = async () => {
+    setRanklistLoading(true);
+    const { requestError, response } = await api.contest.getContestRanklist({
+      contestId: contest.id
+    });
+    setRanklistLoading(false);
+
+    if (!requestError && response && !response.error) {
+      setRanklist(response);
+    }
+  };
+
+  useEffect(() => {
+    // Load ranklist when ranklist tab is active (index 1)
+    if (activeTab === 1 && !ranklist) {
+      fetchRanklist();
+    }
+
+    // Set up auto-refresh every 30 seconds when ranklist tab is active
+    if (activeTab === 1) {
+      const interval = setInterval(() => {
+        fetchRanklist();
+      }, 30000);
+
+      return () => clearInterval(interval);
+    }
+  }, [activeTab, contest.id]);
+
+  const renderOIRanklist = (ranklistData: ApiTypes.GetContestRanklistResponseDto) => {
+    return (
+      <Table celled unstackable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell width={1}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell width={3}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell width={2}>{_(".total_score")}</Table.HeaderCell>
+            {ranklistData.problemIds.map((problemId, index) => (
+              <Table.HeaderCell key={problemId} width={2}>
+                {String.fromCharCode(65 + index)}
+              </Table.HeaderCell>
+            ))}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {ranklistData.ranklist.map(item => (
+            <Table.Row key={item.userId}>
+              <Table.Cell textAlign="center">{item.rank}</Table.Cell>
+              <Table.Cell>
+                <Link href={`/u/${item.username}`}>
+                  {item.username}
+                </Link>
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                <strong>{item.totalScore}</strong>
+              </Table.Cell>
+              {item.problemStatuses.map(status => (
+                <Table.Cell key={status.problemId} textAlign="center">
+                  {status.score !== undefined && status.score !== null ? (
+                    <span style={{ color: status.score === 100 ? "#21ba45" : "#666" }}>
+                      {status.score}
+                      {status.score === 100 && <Icon name="check" style={{ marginLeft: '4px' }} />}
+                    </span>
+                  ) : (
+                    <span style={{ color: "#ccc" }}>-</span>
+                  )}
+                </Table.Cell>
+              ))}
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    );
+  };
+
+  const renderACMRanklist = (ranklistData: ApiTypes.GetContestRanklistResponseDto) => {
+    return (
+      <Table celled unstackable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell width={1}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell width={3}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell width={1}>{_(".solved")}</Table.HeaderCell>
+            <Table.HeaderCell width={2}>{_(".penalty")}</Table.HeaderCell>
+            {ranklistData.problemIds.map((problemId, index) => (
+              <Table.HeaderCell key={problemId} width={2}>
+                {String.fromCharCode(65 + index)}
+              </Table.HeaderCell>
+            ))}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {ranklistData.ranklist.map(item => (
+            <Table.Row key={item.userId}>
+              <Table.Cell textAlign="center">{item.rank}</Table.Cell>
+              <Table.Cell>
+                <Link href={`/u/${item.username}`}>
+                  {item.username}
+                </Link>
+              </Table.Cell>
+              <Table.Cell textAlign="center">
+                <strong>{item.solvedCount}</strong>
+              </Table.Cell>
+              <Table.Cell textAlign="center">{item.totalPenalty}</Table.Cell>
+              {item.problemStatuses.map(status => (
+                <Table.Cell key={status.problemId} textAlign="center">
+                  {status.accepted ? (
+                    <div>
+                      <Icon name="check" color="green" />
+                      <div style={{ fontSize: "0.9em", color: "#666" }}>
+                        {status.wrongAttempts > 0 && (
+                          <span style={{ color: "#db2828" }}>(-{status.wrongAttempts}) </span>
+                        )}
+                        <span>{status.solveTime}m</span>
+                      </div>
+                    </div>
+                  ) : status.wrongAttempts > 0 ? (
+                    <div>
+                      <Icon name="times" color="red" />
+                      <span style={{ color: "#db2828" }}>(-{status.wrongAttempts})</span>
+                    </div>
+                  ) : (
+                    <span style={{ color: "#ccc" }}>-</span>
+                  )}
+                </Table.Cell>
+              ))}
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    );
+  };
+
   const panes = [
     {
       menuItem: _(".tab.problems"),
@@ -169,15 +304,37 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
       menuItem: _(".tab.ranklist"),
       render: () => (
         <Tab.Pane>
-          <Button
-            primary
-            as={Link}
-            href={`/c/${contest.id}/ranklist`}
-            fluid
-          >
-            <Icon name="list ol" />
-            {_(".view_ranklist")}
-          </Button>
+          {ranklistLoading && !ranklist ? (
+            <Loader active inline="centered" />
+          ) : ranklist ? (
+            <>
+              <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "#666", fontSize: "0.9em" }}>
+                  {_(".auto_refresh_30s")}
+                </span>
+                <Button
+                  icon
+                  labelPosition="left"
+                  size="small"
+                  onClick={fetchRanklist}
+                  loading={ranklistLoading}
+                  disabled={ranklistLoading}
+                >
+                  <Icon name="refresh" />
+                  {_(".refresh")}
+                </Button>
+              </div>
+              {ranklist.ranklist.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "2rem", color: "#999" }}>
+                  {_(".no_ranklist_data")}
+                </div>
+              ) : ranklist.contestType === "ACM" ? (
+                renderACMRanklist(ranklist)
+              ) : (
+                renderOIRanklist(ranklist)
+              )}
+            </>
+          ) : null}
         </Tab.Pane>
       )
     },
@@ -245,7 +402,11 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             </div>
           </Segment>
 
-          <Tab panes={panes} />
+          <Tab
+            panes={panes}
+            activeIndex={activeTab}
+            onTabChange={(e, data) => setActiveTab(data.activeIndex as number)}
+          />
         </Grid.Column>
 
         <Grid.Column width={5}>
