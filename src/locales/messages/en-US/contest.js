@@ -6,6 +6,7 @@ return {
   start_time: "Start Time",
   end_time: "End Time",
   type: "Type",
+  status_label: "Status",
   no_contest: "No contests available",
 
   status: {

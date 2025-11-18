@@ -6,6 +6,7 @@ return {
   start_time: "開始時刻",
   end_time: "終了時刻",
   type: "形式",
+  status_label: "状態",
   no_contest: "コンテストがありません",
 
   status: {

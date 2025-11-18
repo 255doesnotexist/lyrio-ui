@@ -6,6 +6,7 @@ return {
   start_time: "开始时间",
   end_time: "结束时间",
   type: "赛制",
+  status_label: "状态",
   no_contest: "暂无比赛",
 
   status: {

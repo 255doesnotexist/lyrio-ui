@@ -6,6 +6,7 @@ return {
   start_time: "Czas rozpoczęcia",
   end_time: "Czas zakończenia",
   type: "Typ",
+  status_label: "Status",
   no_contest: "Brak dostępnych konkursów",
 
   status: {

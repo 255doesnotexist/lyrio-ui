@@ -81,7 +81,7 @@ let ContestListPage: React.FC<ContestListPageProps> = props => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell width={6}>{_(".contest_name")}</Table.HeaderCell>
-              <Table.HeaderCell width={2}>{_(".status")}</Table.HeaderCell>
+              <Table.HeaderCell width={2}>{_(".status_label")}</Table.HeaderCell>
               <Table.HeaderCell width={3}>{_(".start_time")}</Table.HeaderCell>
               <Table.HeaderCell width={3}>{_(".end_time")}</Table.HeaderCell>
               <Table.HeaderCell width={2}>{_(".type")}</Table.HeaderCell>
