@@ -6,12 +6,10 @@ import type { CodeEditorProps } from "./CodeEditor";
 import style from "./CodeEditor.module.less";
 
 const CodeEditor = lazy(async () => {
-  monacoLoader.config({
-    paths: {
-      vs: `${window.cdnjs}/monaco-editor/${EXTERNAL_PACKAGE_VERSION["monaco-editor"]}/min/vs`
-    }
-  });
-  window["Monaco"] = await monacoLoader.init();
+  // Use local monaco-editor package installed via npm
+  // The @monaco-editor/react loader will automatically find it
+  const monaco = await monacoLoader.init();
+  window["Monaco"] = monaco;
   return import("./CodeEditor");
 });
 

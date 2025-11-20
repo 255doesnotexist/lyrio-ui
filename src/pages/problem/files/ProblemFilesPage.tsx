@@ -43,7 +43,8 @@ import { EmojiRenderer } from "@/components/EmojiRenderer";
 
 // Firefox have no WritableStream
 if (!window.WritableStream || true) {
-  (streamsaver as any).WritableStream = (await import("web-streams-polyfill/ponyfill/es6")).WritableStream;
+  const { WritableStream } = await import("web-streams-polyfill");
+  (streamsaver as any).WritableStream = WritableStream;
 }
 if (window.apiEndpoint.toLowerCase().startsWith("https://")) {
   (streamsaver as any).mitm = `${window.apiEndpoint}api/cors/streamsaver/mitm.html`;

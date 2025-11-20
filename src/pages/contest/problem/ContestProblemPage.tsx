@@ -16,11 +16,12 @@ interface ContestProblemPageProps {
   contest: ApiTypes.GetContestDetailResponseDto;
   problemIndex: string;
   problemTitle: string;
+  problemViewKey: string;
   problemViewProps: any;
 }
 
 let ContestProblemPage: React.FC<ContestProblemPageProps> = props => {
-  const { contest, problemIndex, problemTitle, problemViewProps } = props;
+  const { contest, problemIndex, problemTitle, problemViewKey, problemViewProps } = props;
   const _ = useLocalizer("contest");
   const [now, setNow] = useState(new Date());
 
@@ -169,7 +170,7 @@ let ContestProblemPage: React.FC<ContestProblemPageProps> = props => {
         </Message>
       )}
 
-      {canAccessProblem() && <ProblemViewPage {...problemViewProps} />}
+      {canAccessProblem() && <ProblemViewPage key={problemViewKey} {...problemViewProps} />}
     </>
   );
 };
@@ -201,8 +202,8 @@ export default defineRoute(async request => {
   const ProblemTypeView = await getProblemTypeView(problem.meta.type);
 
   // Prepare props for ProblemViewPage
+  const problemViewKey = uuid();
   const problemViewProps = {
-    key: uuid(),
     idType: "id" as const,
     requestedLocale,
     problem,
@@ -215,6 +216,7 @@ export default defineRoute(async request => {
       contest={contestResponse}
       problemIndex={problemIndex}
       problemTitle={contestProblem.problemTitle}
+      problemViewKey={problemViewKey}
       problemViewProps={problemViewProps}
     />
   );
