@@ -72,13 +72,7 @@ function getFallbackFontList(locale: Locale) {
       ];
     case Locale.pl_PL:
     case Locale.en_US:
-      return [
-        "Segoe UI",
-        "Arial",
-        "Helvetica Neue",
-        "Helvetica",
-        "Liberation Sans"
-      ];
+      return ["Segoe UI", "Arial", "Helvetica Neue", "Helvetica", "Liberation Sans"];
     case Locale.ja_JP:
     default:
       return [

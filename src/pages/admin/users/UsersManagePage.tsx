@@ -82,10 +82,7 @@ const UserListItem: React.FC<UserListItemProps> = ({ user, onToggleAdmin, onBanU
         <Table.Cell>{user.submissionCount}</Table.Cell>
         <Table.Cell>
           {user.id === 1 ? (
-            <Popup
-              trigger={<span>{_(".cannot_modify_owner")}</span>}
-              content={_(".owner_description")}
-            />
+            <Popup trigger={<span>{_(".cannot_modify_owner")}</span>} content={_(".owner_description")} />
           ) : (
             <>
               <Button

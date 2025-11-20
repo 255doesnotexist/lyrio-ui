@@ -7,7 +7,8 @@ return {
     password_note: "パスワードは省略可能です。空白の場合はランダムなパスワードが生成されます"
   },
   csv_content: "CSV コンテンツ",
-  csv_placeholder: "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
+  csv_placeholder:
+    "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
   require_password_change: "初回ログイン時にパスワード変更を要求",
   require_password_change_note: "チェックすると、ユーザーは初回ログイン時にパスワードの変更が必要になります",
   submit: "インポート開始",

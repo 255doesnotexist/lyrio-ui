@@ -14,14 +14,16 @@ return {
       INVALID_TIME_LIMIT_TASK: "Nieprawidłowy limit czasu.",
       TIME_LIMIT_TOO_LARGE_TASK: "Limit czasu {3} ms jest zbyt duży, skontaktuj się z administratorem.",
       INVALID_TIME_LIMIT_SUBTASK: "Limit czasu podzadania {1} jest nieprawidłowy.",
-      TIME_LIMIT_TOO_LARGE_SUBTASK: "Limit czasu {3} ms podzadania {1} jest zbyt duży, skontaktuj się z administratorem.",
+      TIME_LIMIT_TOO_LARGE_SUBTASK:
+        "Limit czasu {3} ms podzadania {1} jest zbyt duży, skontaktuj się z administratorem.",
       INVALID_TIME_LIMIT_TESTCASE: "Limit czasu przypadku testowego {2} podzadania {1} jest nieprawidłowy.",
       TIME_LIMIT_TOO_LARGE_TESTCASE:
         "Limit czasu {3} ms przypadku testowego {2} podzadania {1} jest zbyt duży, skontaktuj się z administratorem.",
       INVALID_MEMORY_LIMIT_TASK: "Nieprawidłowy limit pamięci.",
       MEMORY_LIMIT_TOO_LARGE_TASK: "Pamięć {3} MiB jest zbyt duża, skontaktuj się z administratorem.",
       INVALID_MEMORY_LIMIT_SUBTASK: "Limit pamięci podzadania {1} jest nieprawidłowy.",
-      MEMORY_LIMIT_TOO_LARGE_SUBTASK: "Limit pamięci {3} MiB podzadania {1} jest zbyt duży, skontaktuj się z administratorem.",
+      MEMORY_LIMIT_TOO_LARGE_SUBTASK:
+        "Limit pamięci {3} MiB podzadania {1} jest zbyt duży, skontaktuj się z administratorem.",
       INVALID_MEMORY_LIMIT_TESTCASE: "Limit pamięci przypadku testowego {2} podzadania {1} jest nieprawidłowy.",
       MEMORY_LIMIT_TOO_LARGE_TESTCASE:
         "Limit pamięci {3} MiB przypadku testowego {2} podzadania {1} jest zbyt duży, skontaktuj się z administratorem.",
@@ -46,8 +48,10 @@ return {
       INVALID_CHECKER_COMPILE_AND_RUN_OPTIONS: "Nieznany błąd.",
       INVALID_TIME_LIMIT_CHECKER: "Nieprawidłowy limit czasu dla sprawdzacza.",
       INVALID_MEMORY_LIMIT_CHECKER: "Nieprawidłowy limit pamięci dla sprawdzacza.",
-      TIME_LIMIT_TOO_LARGE_CHECKER: "Limit czasu dla sprawdzacza {1} ms jest zbyt duży, skontaktuj się z administratorem.",
-      MEMORY_LIMIT_TOO_LARGE_CHECKER: "Limit pamięci dla sprawdzacza {1} ms jest zbyt duży, skontaktuj się z administratorem.",
+      TIME_LIMIT_TOO_LARGE_CHECKER:
+        "Limit czasu dla sprawdzacza {1} ms jest zbyt duży, skontaktuj się z administratorem.",
+      MEMORY_LIMIT_TOO_LARGE_CHECKER:
+        "Limit pamięci dla sprawdzacza {1} ms jest zbyt duży, skontaktuj się z administratorem.",
       INVALID_INTERACTOR: "Nieznany błąd",
       INVALID_INTERACTOR_INTERFACE: "Nieznany błąd",
       INVALID_INTERACTOR_SHARED_MEMORY_SIZE: "Nieznany błąd",
@@ -56,7 +60,8 @@ return {
       NO_SUCH_INTERACTOR_FILE: "Plik interaktora {1} nie istnieje.",
       INVALID_TIME_LIMIT_INTERACTOR: "Nieprawidłowy limit czasu dla interaktora.",
       INVALID_MEMORY_LIMIT_INTERACTOR: "Nieprawidłowy limit pamięci dla interaktora.",
-      TIME_LIMIT_TOO_LARGE_INTERACTOR: "Limit czasu dla interaktora {1} ms jest zbyt duży, skontaktuj się z administratorem.",
+      TIME_LIMIT_TOO_LARGE_INTERACTOR:
+        "Limit czasu dla interaktora {1} ms jest zbyt duży, skontaktuj się z administratorem.",
       MEMORY_LIMIT_TOO_LARGE_INTERACTOR:
         "Limit pamięci dla interaktora {1} ms jest zbyt duży, skontaktuj się z administratorem.",
       INVALID_EXTRA_SOURCE_FILES: "Nieznany błąd.",
@@ -134,7 +139,8 @@ return {
   subtasks: {
     auto_testcases:
       "Wykryj przypadki testowe z plików danych testowych (Dopasuj pliki <code>.in</code> i <code>.out</code> automatycznie)",
-    auto_testcases_no_output: "Wykryj przypadki testowe z plików danych testowych (Dopasuj pliki <code>.in</code> automatycznie)",
+    auto_testcases_no_output:
+      "Wykryj przypadki testowe z plików danych testowych (Dopasuj pliki <code>.in</code> automatycznie)",
     cannot_detect_testcases_from_testdata: "Nie można wykryć przypadków testowych z danych testowych",
     subtask: "Podzadanie",
     single_subtask: "Pojedyncze podzadanie",
@@ -163,7 +169,8 @@ return {
       input_file: "Plik wejściowy",
       output_file: "Plik wyjściowy",
       can_not_compile_for_input: "Nie można skompilować Twojego wyrażenia regularnego dla pliku wejściowego: {message}",
-      can_not_compile_for_output: "Nie można skompilować Twojego wyrażenia regularnego dla pliku wyjściowego: {message}",
+      can_not_compile_for_output:
+        "Nie można skompilować Twojego wyrażenia regularnego dla pliku wyjściowego: {message}",
       no_capturing_groups:
         "Brak grup przechwytujących. Musisz dodać grupy przechwytujące do wyrażeń regularnych, aby pomóc nam skojarzyć pliki wejściowe/wyjściowe.",
       capturing_groups_do_not_match:

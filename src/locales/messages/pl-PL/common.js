@@ -28,7 +28,8 @@ return {
     warning: "Ostrzeżenie",
     error: "Błąd"
   },
-  localized_content_unavailable: "Ta treść nie jest dostępna w Twoim preferowanym języku, wyświetlono wersję {display_locale}.",
+  localized_content_unavailable:
+    "Ta treść nie jest dostępna w Twoim preferowanym języku, wyświetlono wersję {display_locale}.",
   footer: {
     judge_machine: "Status serwera oceniania",
     locale: "Język",

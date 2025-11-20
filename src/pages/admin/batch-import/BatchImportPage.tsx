@@ -65,10 +65,12 @@ let BatchImportPage: React.FC = () => {
       if (failCount === 0) {
         toast.success(_(".success_all", { count: successCount.toString() }));
       } else {
-        toast.warning(_(".success_partial", {
-          success: successCount.toString(),
-          fail: failCount.toString()
-        }));
+        toast.warning(
+          _(".success_partial", {
+            success: successCount.toString(),
+            fail: failCount.toString()
+          })
+        );
       }
     }
   }
@@ -122,9 +124,7 @@ let BatchImportPage: React.FC = () => {
               <Icon name="upload" />
               {_(".submit")}
             </Button>
-            <Button onClick={() => navigation.goBack()}>
-              {_(".cancel")}
-            </Button>
+            <Button onClick={() => navigation.goBack()}>{_(".cancel")}</Button>
           </Button.Group>
         </Form>
 

@@ -27,10 +27,10 @@ export interface ContestManagePageProps {
 // Format date to local datetime-local input format (YYYY-MM-DDTHH:mm)
 function formatLocalDateTime(date: Date): string {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
@@ -41,14 +41,10 @@ let ContestManagePage: React.FC<ContestManagePageProps> = props => {
   const [title, setTitle] = useState(props.contest?.title || "");
   const [description, setDescription] = useState(props.contest?.description || "");
   const [startTime, setStartTime] = useState(
-    props.contest?.startTime
-      ? formatLocalDateTime(new Date(props.contest.startTime))
-      : ""
+    props.contest?.startTime ? formatLocalDateTime(new Date(props.contest.startTime)) : ""
   );
   const [endTime, setEndTime] = useState(
-    props.contest?.endTime
-      ? formatLocalDateTime(new Date(props.contest.endTime))
-      : ""
+    props.contest?.endTime ? formatLocalDateTime(new Date(props.contest.endTime)) : ""
   );
   const [contestType, setContestType] = useState(props.contest?.type || "OI");
   const [isPublic, setIsPublic] = useState(props.contest?.isPublic ?? true);
@@ -60,10 +56,7 @@ let ContestManagePage: React.FC<ContestManagePageProps> = props => {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    appState.enterNewPage(
-      props.isEdit ? _(".edit_contest") : _(".create_contest"),
-      null
-    );
+    appState.enterNewPage(props.isEdit ? _(".edit_contest") : _(".create_contest"), null);
   }, [props.isEdit]);
 
   const contestTypeOptions = [
@@ -144,9 +137,7 @@ let ContestManagePage: React.FC<ContestManagePageProps> = props => {
     <>
       <Header as="h1">
         <Icon name={props.isEdit ? "edit" : "plus"} />
-        <Header.Content>
-          {props.isEdit ? _(".edit_contest") : _(".create_contest")}
-        </Header.Content>
+        <Header.Content>{props.isEdit ? _(".edit_contest") : _(".create_contest")}</Header.Content>
       </Header>
 
       <Segment className={style.segment}>
@@ -174,20 +165,12 @@ let ContestManagePage: React.FC<ContestManagePageProps> = props => {
           <Form.Group widths="equal">
             <Form.Field required>
               <label>{_(".form.start_time")}</label>
-              <Form.Input
-                type="datetime-local"
-                value={startTime}
-                onChange={(e, { value }) => setStartTime(value)}
-              />
+              <Form.Input type="datetime-local" value={startTime} onChange={(e, { value }) => setStartTime(value)} />
             </Form.Field>
 
             <Form.Field required>
               <label>{_(".form.end_time")}</label>
-              <Form.Input
-                type="datetime-local"
-                value={endTime}
-                onChange={(e, { value }) => setEndTime(value)}
-              />
+              <Form.Input type="datetime-local" value={endTime} onChange={(e, { value }) => setEndTime(value)} />
             </Form.Field>
           </Form.Group>
 

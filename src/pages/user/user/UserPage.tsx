@@ -317,9 +317,10 @@ let UserPage: React.FC<UserPageProps> = props => {
     </>
   );
 
-  const currentRating = props.ratingHistory && props.ratingHistory.length > 0
-    ? props.ratingHistory[props.ratingHistory.length - 1].newRating
-    : 1500;
+  const currentRating =
+    props.ratingHistory && props.ratingHistory.length > 0
+      ? props.ratingHistory[props.ratingHistory.length - 1].newRating
+      : 1500;
 
   const statisticsItems = [
     <div className={style.item}>
@@ -341,7 +342,9 @@ let UserPage: React.FC<UserPageProps> = props => {
         <Icon name="line graph" />
       </div>
       <span className={style.key}>{_(".rating_graph.title")}</span>
-      <span className={style.value} style={{ color: getRatingColor(currentRating) }}>{currentRating}</span>
+      <span className={style.value} style={{ color: getRatingColor(currentRating) }}>
+        {currentRating}
+      </span>
     </div>,
     <div className={style.item}>
       <div className={style.iconWrapper}>

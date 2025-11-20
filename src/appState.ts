@@ -56,7 +56,13 @@ export class AppState {
   @computed
   get locale(): Locale {
     if (this.localLocale && this.localLocale === (this.userPreference.locale?.system || browserDefaultLocale)) {
-      setTimeout(() => runInAction(() => { this.localLocale = null; }), 0);
+      setTimeout(
+        () =>
+          runInAction(() => {
+            this.localLocale = null;
+          }),
+        0
+      );
     }
     return this.localLocale || (this.userPreference.locale?.system as Locale) || browserDefaultLocale;
   }

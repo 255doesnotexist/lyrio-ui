@@ -46,9 +46,7 @@ const TraditionalProblemSubmissionView: React.FC<TraditionalProblemSubmissionVie
   if (!props.content) {
     return (
       <>
-        <Message warning>
-          {_(".code_hidden")}
-        </Message>
+        <Message warning>{_(".code_hidden")}</Message>
         {props.getSubtasksView(testcaseResult => (
           <OmittableAnsiCodeBox title={_(".testcase.checker_message")} ansiMessage={testcaseResult.checkerMessage} />
         ))}

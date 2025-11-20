@@ -44,9 +44,7 @@ const InteractionProblemSubmissionView: React.FC<InteractionProblemSubmissionVie
   if (!props.content) {
     return (
       <>
-        <Message warning>
-          {_(".code_hidden")}
-        </Message>
+        <Message warning>{_(".code_hidden")}</Message>
         {props.getSubtasksView(testcaseResult => (
           <OmittableAnsiCodeBox
             title={_(".testcase.interactor_message")}

@@ -234,9 +234,9 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell style={{ width: '60px' }}>{_(".rank")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '100px' }}>{_(".username")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '80px' }}>{_(".total_score")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "60px" }}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "100px" }}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "80px" }}>{_(".total_score")}</Table.HeaderCell>
             {ranklistData.problemIds.map((problemId, index) => (
               <Table.HeaderCell key={problemId} textAlign="center">
                 {String.fromCharCode(65 + index)}
@@ -249,9 +249,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell textAlign="center">{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link href={`/u/${item.username}`}>
-                  {renderUsername(item.username, item.rating)}
-                </Link>
+                <Link href={`/u/${item.username}`}>{renderUsername(item.username, item.rating)}</Link>
               </Table.Cell>
               <Table.Cell textAlign="center">
                 <strong>{item.totalScore}</strong>
@@ -260,15 +258,17 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                 <Table.Cell key={status.problemId} textAlign="center">
                   {status.score !== undefined && status.score !== null ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <span style={{ color: status.score === 100 ? "#21ba45" : "#666", fontSize: "1.1em", fontWeight: 500 }}>
+                      <span
+                        style={{ color: status.score === 100 ? "#21ba45" : "#666", fontSize: "1.1em", fontWeight: 500 }}
+                      >
                         {status.score}
                       </span>
                       {isIOI && status.firstAcceptTime !== undefined && status.firstAcceptTime !== null && (
-                        <span style={{ fontSize: "0.75em", color: "#aaa", marginTop: '2px', fontWeight: 400 }}>
+                        <span style={{ fontSize: "0.75em", color: "#aaa", marginTop: "2px", fontWeight: 400 }}>
                           {status.firstAcceptTime}m
                         </span>
                       )}
-                      {status.score === 100 && <Icon name="check" style={{ marginTop: '2px', fontSize: '0.9em' }} />}
+                      {status.score === 100 && <Icon name="check" style={{ marginTop: "2px", fontSize: "0.9em" }} />}
                     </div>
                   ) : (
                     <span style={{ color: "#ddd" }}>-</span>
@@ -287,10 +287,10 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell style={{ width: '60px' }}>{_(".rank")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '100px' }}>{_(".username")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '80px' }}>{_(".solved")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '80px' }}>{_(".penalty")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "60px" }}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "100px" }}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "80px" }}>{_(".solved")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "80px" }}>{_(".penalty")}</Table.HeaderCell>
             {ranklistData.problemIds.map((problemId, index) => (
               <Table.HeaderCell key={problemId} textAlign="center">
                 {String.fromCharCode(65 + index)}
@@ -303,9 +303,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell textAlign="center">{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link href={`/u/${item.username}`}>
-                  {renderUsername(item.username, item.rating)}
-                </Link>
+                <Link href={`/u/${item.username}`}>{renderUsername(item.username, item.rating)}</Link>
               </Table.Cell>
               <Table.Cell textAlign="center">
                 <strong>{item.solvedCount}</strong>
@@ -316,7 +314,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                   {status.accepted ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                       <span style={{ color: "#21ba45", fontSize: "1.1em", fontWeight: 500 }}>+</span>
-                      <span style={{ fontSize: "0.8em", color: "#888", marginTop: '2px', fontWeight: 400 }}>
+                      <span style={{ fontSize: "0.8em", color: "#888", marginTop: "2px", fontWeight: 400 }}>
                         {status.wrongAttempts > 0 && `(-${status.wrongAttempts}) `}
                         {status.solveTime}m
                       </span>
@@ -324,9 +322,11 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                   ) : status.wrongAttempts > 0 ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                       <span style={{ color: "#db2828", fontSize: "1.1em", fontWeight: 500 }}>-</span>
-                      <span style={{ fontSize: "0.8em", color: "#888", marginTop: '2px', fontWeight: 400 }}>
+                      <span style={{ fontSize: "0.8em", color: "#888", marginTop: "2px", fontWeight: 400 }}>
                         (-{status.wrongAttempts})
-                        {status.lastSubmitTime !== undefined && status.lastSubmitTime !== null && ` ${status.lastSubmitTime}m`}
+                        {status.lastSubmitTime !== undefined &&
+                          status.lastSubmitTime !== null &&
+                          ` ${status.lastSubmitTime}m`}
                       </span>
                     </div>
                   ) : (
@@ -365,10 +365,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                       {problem.problemTitle}
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>
-                    {/* TODO: Add problem statistics */}
-                    -
-                  </Table.Cell>
+                  <Table.Cell>{/* TODO: Add problem statistics */}-</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
@@ -384,10 +381,10 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <Loader active inline="centered" />
           ) : ranklist ? (
             <>
-              <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ color: "#888", fontSize: "0.85em", fontWeight: 400 }}>
-                  {_(".auto_refresh_30s")}
-                </span>
+              <div
+                style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}
+              >
+                <span style={{ color: "#888", fontSize: "0.85em", fontWeight: 400 }}>{_(".auto_refresh_30s")}</span>
                 <div>
                   <Button
                     icon
@@ -445,14 +442,23 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
               ) : (
                 <Table basic="very" textAlign="center" unstackable>
                   <Table.Header>
-                    {isMobile ? <SubmissionHeaderMobile /> : <SubmissionHeader page="submissions" config={{ hideContest: true, hideSubmitter: true }} />}
+                    {isMobile ? (
+                      <SubmissionHeaderMobile />
+                    ) : (
+                      <SubmissionHeader page="submissions" config={{ hideContest: true, hideSubmitter: true }} />
+                    )}
                   </Table.Header>
                   <Table.Body>
                     {submissions.map(submission =>
                       isMobile ? (
                         <SubmissionItemMobile key={submission.id} submission={submission} />
                       ) : (
-                        <SubmissionItem key={submission.id} submission={submission} page="submissions" config={{ hideContest: true, hideSubmitter: true }} />
+                        <SubmissionItem
+                          key={submission.id}
+                          submission={submission}
+                          page="submissions"
+                          config={{ hideContest: true, hideSubmitter: true }}
+                        />
                       )
                     )}
                   </Table.Body>
@@ -546,8 +552,9 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
               </div>
             </div>
 
-            {appState.currentUser && !contest.hasPermissionToManage && (
-              isRegistered ? (
+            {appState.currentUser &&
+              !contest.hasPermissionToManage &&
+              (isRegistered ? (
                 <Button
                   color="red"
                   fluid
@@ -571,16 +578,10 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                   <Icon name="sign-in" />
                   {_(".register")}
                 </Button>
-              )
-            )}
+              ))}
 
             {!appState.currentUser && (
-              <Button
-                primary
-                fluid
-                onClick={navigateToLogin}
-                className={style.registrationButton}
-              >
+              <Button primary fluid onClick={navigateToLogin} className={style.registrationButton}>
                 <Icon name="sign-in" />
                 {_(".login_to_register")}
               </Button>
@@ -588,13 +589,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
 
             {contest.hasPermissionToManage && (
               <>
-                <Button
-                  primary
-                  fluid
-                  as={Link}
-                  href={`/c/${contest.id}/edit`}
-                  className={style.manageButton}
-                >
+                <Button primary fluid as={Link} href={`/c/${contest.id}/edit`} className={style.manageButton}>
                   <Icon name="edit" />
                   {_(".edit_contest")}
                 </Button>
@@ -606,11 +601,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                     disabled={!canCalculateRating() || calculatingRating}
                     loading={calculatingRating}
                     trigger={
-                      <Button
-                        fluid
-                        disabled={!canCalculateRating() || calculatingRating}
-                        loading={calculatingRating}
-                      >
+                      <Button fluid disabled={!canCalculateRating() || calculatingRating} loading={calculatingRating}>
                         <Icon name="calculator" />
                         {_(".calculate_rating")}
                       </Button>

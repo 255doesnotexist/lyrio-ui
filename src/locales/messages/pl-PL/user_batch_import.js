@@ -7,7 +7,8 @@ return {
     password_note: "Pole hasła jest opcjonalne. Pozostaw puste, aby wygenerować losowe hasło"
   },
   csv_content: "Zawartość CSV",
-  csv_placeholder: "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
+  csv_placeholder:
+    "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
   require_password_change: "Wymagaj zmiany hasła przy pierwszym logowaniu",
   require_password_change_note: "Jeśli zaznaczone, użytkownicy będą musieli zmienić hasło przy pierwszym logowaniu",
   submit: "Rozpocznij import",

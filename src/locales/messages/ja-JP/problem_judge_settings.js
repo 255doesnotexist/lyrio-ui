@@ -14,16 +14,14 @@ return {
       INVALID_TIME_LIMIT_TASK: "時間制限が無効です。",
       TIME_LIMIT_TOO_LARGE_TASK: "時間制限 {3} ms が大きすぎます。管理者に連絡してください。",
       INVALID_TIME_LIMIT_SUBTASK: "サブタスク {1} の時間制限が無効です。",
-      TIME_LIMIT_TOO_LARGE_SUBTASK:
-        "サブタスク {1} の時間制限 {3} ms が大きすぎます。管理者に連絡してください。",
+      TIME_LIMIT_TOO_LARGE_SUBTASK: "サブタスク {1} の時間制限 {3} ms が大きすぎます。管理者に連絡してください。",
       INVALID_TIME_LIMIT_TESTCASE: "サブタスク {1} のテストケース {2} の時間制限が無効です。",
       TIME_LIMIT_TOO_LARGE_TESTCASE:
         "サブタスク {1} のテストケース {2} の時間制限 {3} ms が大きすぎます。管理者に連絡してください。",
       INVALID_MEMORY_LIMIT_TASK: "メモリ制限が無効です。",
       MEMORY_LIMIT_TOO_LARGE_TASK: "メモリ制限 {3} MiB が大きすぎます。管理者に連絡してください。",
       INVALID_MEMORY_LIMIT_SUBTASK: "サブタスク {1} のメモリ制限が無効です。",
-      MEMORY_LIMIT_TOO_LARGE_SUBTASK:
-        "サブタスク {1} のメモリ制限 {3} MiB が大きすぎます。管理者に連絡してください。",
+      MEMORY_LIMIT_TOO_LARGE_SUBTASK: "サブタスク {1} のメモリ制限 {3} MiB が大きすぎます。管理者に連絡してください。",
       INVALID_MEMORY_LIMIT_TESTCASE: "サブタスク {1} のテストケース {2} のメモリ制限が無効です。",
       MEMORY_LIMIT_TOO_LARGE_TESTCASE:
         "サブタスク {1} のテストケース {2} のメモリ制限 {3} MiB が大きすぎます。管理者に連絡してください。",
@@ -33,8 +31,7 @@ return {
       INVALID_SCORING_TYPE: "不明なエラーです。",
       INVALID_POINTS_SUBTASK: "サブタスク {1} の配点比率 {2} が無効です。",
       INVALID_POINTS_TESTCASE: "サブタスク {1} のテストケース {2} の配点比率 {3} が無効です。",
-      POINTS_SUM_UP_TO_LARGER_THAN_100_SUBTASKS:
-        "全サブタスクの配点合計が {1} で、満点の 100 を超えています。",
+      POINTS_SUM_UP_TO_LARGER_THAN_100_SUBTASKS: "全サブタスクの配点合計が {1} で、満点の 100 を超えています。",
       POINTS_SUM_UP_TO_LARGER_THAN_100_TESTCASES:
         "サブタスク {1} の全テストケースの配点合計が {2} で、満点の 100 を超えています。",
       INVALID_DEPENDENCY: "サブタスク {1} の依存サブタスク ID {2} が無効です。",
@@ -49,8 +46,7 @@ return {
       INVALID_TIME_LIMIT_CHECKER: "チェッカーの時間制限が無効です。",
       INVALID_MEMORY_LIMIT_CHECKER: "チェッカーのメモリ制限が無効です。",
       TIME_LIMIT_TOO_LARGE_CHECKER: "チェッカーの時間制限 {1} ms が大きすぎます。管理者に連絡してください。",
-      TIME_MEMORY_TOO_LARGE_CHECKER:
-        "チェッカーのメモリ制限 {1} MiB が大きすぎます。管理者に連絡してください。",
+      TIME_MEMORY_TOO_LARGE_CHECKER: "チェッカーのメモリ制限 {1} MiB が大きすぎます。管理者に連絡してください。",
       INVALID_INTERACTOR: "不明なエラーです。",
       INVALID_INTERACTOR_INTERFACE: "不明なエラーです。",
       INVALID_INTERACTOR_SHARED_MEMORY_SIZE: "不明なエラーです。",
@@ -59,8 +55,7 @@ return {
       NO_SUCH_INTERACTOR_FILE: "インタラクターファイル {1} が存在しません。",
       INVALID_TIME_LIMIT_INTERACTOR: "インタラクターの時間制限が無効です。",
       INVALID_MEMORY_LIMIT_INTERACTOR: "インタラクターのメモリ制限が無効です。",
-      TIME_LIMIT_TOO_LARGE_INTERACTOR:
-        "インタラクターの時間制限 {1} ms が大きすぎます。管理者に連絡してください。",
+      TIME_LIMIT_TOO_LARGE_INTERACTOR: "インタラクターの時間制限 {1} ms が大きすぎます。管理者に連絡してください。",
       MEMORY_LIMIT_TOO_LARGE_INTERACTOR:
         "インタラクターのメモリ制限 {1} MiB が大きすぎます。管理者に連絡してください。",
       INVALID_EXTRA_SOURCE_FILES: "不明なエラーです。",
@@ -103,13 +98,11 @@ return {
     config: {
       floats: {
         precision: "精度",
-        description:
-          "参加者の答えと正解との絶対誤差または相対誤差が {value} 未満の場合、正解とみなされます。"
+        description: "参加者の答えと正解との絶対誤差または相対誤差が {value} 未満の場合、正解とみなされます。"
       },
       lines: {
         case_sensitive: "大文字小文字を区別",
-        description:
-          "各行の末尾の空白文字とファイル末尾の空行は無視されます。"
+        description: "各行の末尾の空白文字とファイル末尾の空行は無視されます。"
       },
       custom: {
         interface: "インターフェース",

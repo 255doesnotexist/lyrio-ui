@@ -29,7 +29,8 @@ return {
       delete: "Usuń",
       confirm_delete: "Potwierdź usunięcie",
       confirm_delete_dialog_title: "Usuń dyskusję",
-      confirm_delete_dialog_content: "Czy na pewno chcesz usunąć dyskusję? WSZYSTKIE jej odpowiedzi również zostaną usunięte.",
+      confirm_delete_dialog_content:
+        "Czy na pewno chcesz usunąć dyskusję? WSZYSTKIE jej odpowiedzi również zostaną usunięte.",
       confirm_delete_dialog_confirm: "Potwierdź usunięcie",
       confirm_delete_dialog_cancel: "Anuluj"
     }

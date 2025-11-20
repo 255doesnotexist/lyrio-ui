@@ -10,7 +10,8 @@ return {
   welcome: "Dołącz do nas!",
   description: "Utwórz konto, aby korzystać z systemu oceniania online Lyrio.",
   empty_username: "Wprowadź nazwę użytkownika.",
-  invalid_username: "Nazwa użytkownika musi mieć od 3 do 24 znaków i zawierać tylko litery, cyfry oraz znaki podkreślenia.",
+  invalid_username:
+    "Nazwa użytkownika musi mieć od 3 do 24 znaków i zawierać tylko litery, cyfry oraz znaki podkreślenia.",
   duplicate_username: "Ta nazwa użytkownika jest już zajęta.",
   empty_email: "Wprowadź adres e-mail.",
   invalid_email: "Nieprawidłowy adres e-mail.",

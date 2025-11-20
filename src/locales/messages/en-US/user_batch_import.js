@@ -7,7 +7,8 @@ return {
     password_note: "Password field is optional. Leave blank for auto-generated random password"
   },
   csv_content: "CSV Content",
-  csv_placeholder: "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
+  csv_placeholder:
+    "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
   require_password_change: "Require password change on first login",
   require_password_change_note: "If checked, users will be required to change their password on first login",
   submit: "Start Import",

@@ -35,36 +35,22 @@ let AdminPanelPage: React.FC<AdminPanelPageProps> = props => {
       <Grid>
         <Grid.Column width={4}>
           <Menu vertical fluid>
-            <Menu.Item
-              as={Link}
-              href="/admin/users"
-              active={props.activeMenu === "users"}
-            >
+            <Menu.Item as={Link} href="/admin/users" active={props.activeMenu === "users"}>
               <Icon name="users" />
               {_(".menu.users")}
             </Menu.Item>
-            <Menu.Item
-              as={Link}
-              href="/homepage-settings"
-              active={props.activeMenu === "homepage"}
-            >
+            <Menu.Item as={Link} href="/homepage-settings" active={props.activeMenu === "homepage"}>
               <Icon name="home" />
               {_(".menu.homepage")}
             </Menu.Item>
-            <Menu.Item
-              as={Link}
-              href="/judge-machine"
-              active={props.activeMenu === "judge-machines"}
-            >
+            <Menu.Item as={Link} href="/judge-machine" active={props.activeMenu === "judge-machines"}>
               <Icon name="server" />
               {_(".menu.judge_machines")}
             </Menu.Item>
           </Menu>
         </Grid.Column>
 
-        <Grid.Column width={12}>
-          {props.children}
-        </Grid.Column>
+        <Grid.Column width={12}>{props.children}</Grid.Column>
       </Grid>
     </div>
   );

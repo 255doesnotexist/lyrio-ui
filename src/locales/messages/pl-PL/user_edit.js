@@ -216,7 +216,8 @@ return {
       },
       SkipRecaptcha: {
         name: "Pomiń reCAPTCHA",
-        notes: "Wysyłaj wszelkie żądania bez weryfikacji reCAPTCHA (jeśli włączona). Przydatne dla robotów i wirtualnego sędziego."
+        notes:
+          "Wysyłaj wszelkie żądania bez weryfikacji reCAPTCHA (jeśli włączona). Przydatne dla robotów i wirtualnego sędziego."
       }
     },
     display_settings: "Ustawienia wyświetlania",

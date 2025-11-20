@@ -107,9 +107,7 @@ let ContestListPage: React.FC<ContestListPageProps> = props => {
                         [{contest.isPublic ? _(".form.public") : _(".form.private")}]
                       </span>
                     )}
-                    {contest.description && (
-                      <div className={style.description}>{contest.description}</div>
-                    )}
+                    {contest.description && <div className={style.description}>{contest.description}</div>}
                   </Table.Cell>
                   <Table.Cell>
                     <span className={style[getContestStatusColor(contest.startTime, contest.endTime)]}>

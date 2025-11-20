@@ -94,7 +94,8 @@ return {
     private: "Prywatny",
     problem_ids: "Lista ID zadań",
     problem_ids_placeholder: "Wprowadź ID zadań oddzielone przecinkami, np. 1001,1002,1003",
-    problem_ids_hint: "Wprowadź istniejące ID zadań oddzielone przecinkami. Zadania będą uporządkowane zgodnie z wprowadzoną kolejnością.",
+    problem_ids_hint:
+      "Wprowadź istniejące ID zadań oddzielone przecinkami. Zadania będą uporządkowane zgodnie z wprowadzoną kolejnością.",
     announcement: "Ogłoszenie",
     announcement_placeholder: "Wprowadź ogłoszenie konkursu (obsługiwany Markdown)",
     editorial: "Rozwiązania",

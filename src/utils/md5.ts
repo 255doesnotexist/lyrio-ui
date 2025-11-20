@@ -50,7 +50,7 @@ function II(a: number, b: number, c: number, d: number, x: number, s: number, ac
 }
 
 function convertToWordArray(string: string): number[] {
-  const lWordCount = ((((string.length + 8) - ((string.length + 8) % 64)) / 64) + 1) * 16;
+  const lWordCount = ((string.length + 8 - ((string.length + 8) % 64)) / 64 + 1) * 16;
   const lWordArray: number[] = new Array(lWordCount - 1);
   let lBytePosition = 0;
   let lByteCount = 0;
@@ -90,10 +90,22 @@ export function md5(string: string): string {
   let AA, BB, CC, DD;
   let a, b, c, d;
 
-  const S11 = 7, S12 = 12, S13 = 17, S14 = 22;
-  const S21 = 5, S22 = 9, S23 = 14, S24 = 20;
-  const S31 = 4, S32 = 11, S33 = 16, S34 = 23;
-  const S41 = 6, S42 = 10, S43 = 15, S44 = 21;
+  const S11 = 7,
+    S12 = 12,
+    S13 = 17,
+    S14 = 22;
+  const S21 = 5,
+    S22 = 9,
+    S23 = 14,
+    S24 = 20;
+  const S31 = 4,
+    S32 = 11,
+    S33 = 16,
+    S34 = 23;
+  const S41 = 6,
+    S42 = 10,
+    S43 = 15,
+    S44 = 21;
 
   const x = convertToWordArray(string);
 

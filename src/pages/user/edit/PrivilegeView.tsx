@@ -178,7 +178,12 @@ const PrevilegeView: React.FC<PrevilegeViewProps> = props => {
       ))}
 
       {/* Hidden from ranking */}
-      <Header className={style.sectionHeader} size="medium" content={_(".display_settings")} style={{ marginTop: "2rem" }} />
+      <Header
+        className={style.sectionHeader}
+        size="medium"
+        content={_(".display_settings")}
+        style={{ marginTop: "2rem" }}
+      />
       <div className={style.privilegeRow}>
         <Checkbox
           toggle

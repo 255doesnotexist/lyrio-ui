@@ -43,16 +43,18 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
 
   const ratingChangesData: ChartDataPoint[] =
     props.ratingHistory && props.ratingHistory.length > 0
-      ? props.ratingHistory.map((change, index): ChartDataPoint => ({
-          index,
-          contestTitle: change.contestTitle,
-          rating: change.newRating,
-          ratingChange: change.ratingChange,
-          rank: change.rank,
-          participantCount: change.participantCount,
-          time: dayjs(change.time).format("YYYY-MM-DD"),
-          contestId: change.contestId
-        }))
+      ? props.ratingHistory.map(
+          (change, index): ChartDataPoint => ({
+            index,
+            contestTitle: change.contestTitle,
+            rating: change.newRating,
+            ratingChange: change.ratingChange,
+            rank: change.rank,
+            participantCount: change.participantCount,
+            time: dayjs(change.time).format("YYYY-MM-DD"),
+            contestId: change.contestId
+          })
+        )
       : [];
 
   // Always include initial 1500 rating point at the start
@@ -82,11 +84,7 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
   }
 
   // Custom dot component that handles hover
-  const CustomDot = (props: {
-    cx: number;
-    cy: number;
-    payload: ChartDataPoint;
-  }) => {
+  const CustomDot = (props: { cx: number; cy: number; payload: ChartDataPoint }) => {
     const { cx, cy, payload } = props;
     const isHovered = hoveredPoint?.data.index === payload.index;
 
@@ -99,7 +97,7 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
         stroke="#FFCC00"
         strokeWidth={isHovered ? 2.5 : 2}
         onMouseEnter={() => setHoveredPoint({ data: payload, x: cx, y: cy })}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: "pointer" }}
       />
     );
   };
@@ -112,24 +110,18 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
     // Position tooltip to the right of the dot, offset by 15px
     const tooltipStyle = {
       left: `${x + 15}px`,
-      top: `${y - 10}px`,
+      top: `${y - 10}px`
     };
 
     // For initial rating point, show simplified tooltip
     if (data.index === -1) {
       const tierKey = getRatingTierI18nKey(data.rating);
       return (
-        <div
-          className={style.tooltipWrapper}
-          style={tooltipStyle}
-          onMouseEnter={(e) => e.stopPropagation()}
-        >
+        <div className={style.tooltipWrapper} style={tooltipStyle} onMouseEnter={e => e.stopPropagation()}>
           <div className={style.tooltip}>
             <div className={style.tooltipContest}>{_(".rating_graph.initial_rating")}</div>
             <div className={style.tooltipRating}>
-              <span style={{ color: getRatingColor(data.rating), fontWeight: "bolder" }}>
-                {data.rating}
-              </span>
+              <span style={{ color: getRatingColor(data.rating), fontWeight: "bolder" }}>{data.rating}</span>
             </div>
             <div className={style.tooltipTier} style={{ color: getRatingColor(data.rating) }}>
               {_(".rating_tier." + tierKey)}
@@ -142,22 +134,17 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
     const tierKey = getRatingTierI18nKey(data.rating);
 
     return (
-      <div
-        className={style.tooltipWrapper}
-        style={tooltipStyle}
-        onMouseEnter={(e) => e.stopPropagation()}
-      >
+      <div className={style.tooltipWrapper} style={tooltipStyle} onMouseEnter={e => e.stopPropagation()}>
         <div className={style.tooltip}>
           <Link href={`/c/${data.contestId}`} className={style.tooltipContest}>
             {data.contestTitle}
           </Link>
           <div className={style.tooltipTime}>{data.time}</div>
           <div className={style.tooltipRating}>
-            <span style={{ color: getRatingColor(data.rating), fontWeight: "bolder" }}>
-              {data.rating}
-            </span>
+            <span style={{ color: getRatingColor(data.rating), fontWeight: "bolder" }}>{data.rating}</span>
             <span className={data.ratingChange >= 0 ? style.ratingUp : style.ratingDown}>
-              ({data.ratingChange >= 0 ? "+" : ""}{data.ratingChange})
+              ({data.ratingChange >= 0 ? "+" : ""}
+              {data.ratingChange})
             </span>
           </div>
           <div className={style.tooltipTier} style={{ color: getRatingColor(data.rating) }}>
@@ -188,12 +175,7 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
             />
           ))}
           <CartesianGrid strokeDasharray="3 3" stroke="#e8e8e8" strokeOpacity={0.5} />
-          <XAxis
-            dataKey="index"
-            tick={false}
-            stroke="#ccc"
-            strokeWidth={1}
-          />
+          <XAxis dataKey="index" tick={false} stroke="#ccc" strokeWidth={1} />
           <YAxis
             domain={[yAxisMin, yAxisMax]}
             ticks={yAxisTicks}
@@ -203,13 +185,7 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
             width={40}
           />
           {/* Gold line with white-filled dots - Codeforces style */}
-          <Line
-            type="monotone"
-            dataKey="rating"
-            stroke="#FFCC00"
-            strokeWidth={2}
-            dot={<CustomDot />}
-          />
+          <Line type="monotone" dataKey="rating" stroke="#FFCC00" strokeWidth={2} dot={<CustomDot />} />
         </LineChart>
       </ResponsiveContainer>
     </div>

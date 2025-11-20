@@ -49,9 +49,7 @@ export const SubmissionHeader: React.FC<SubmissionHeaderProps> = props => {
       <Table.HeaderCell className={style.columnScore}>{_(".columns.score")}</Table.HeaderCell>
       <Table.HeaderCell className={style.columnProblemAndSubmitter} textAlign="left">
         <div className={style.problem}>{_(".columns.problem")}</div>
-        {!props?.config?.hideSubmitter && (
-          <div className={style.submitter}>{_(".columns.submitter")}</div>
-        )}
+        {!props?.config?.hideSubmitter && <div className={style.submitter}>{_(".columns.submitter")}</div>}
       </Table.HeaderCell>
       {!props?.config?.hideTimeMemory && (
         <>

@@ -35,9 +35,7 @@ const SubmitAnswerProblemSubmissionView: React.FC<SubmitAnswerProblemSubmissionV
   if (!props.content) {
     return (
       <>
-        <Message warning>
-          {_(".answer_hidden")}
-        </Message>
+        <Message warning>{_(".answer_hidden")}</Message>
         {props.getSubtasksView(testcaseResult => (
           <OmittableAnsiCodeBox title={_(".testcase.checker_message")} ansiMessage={testcaseResult.checkerMessage} />
         ))}

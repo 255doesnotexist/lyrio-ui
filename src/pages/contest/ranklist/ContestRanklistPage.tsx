@@ -58,9 +58,9 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell style={{ width: '60px' }}>{_(".rank")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '100px' }}>{_(".username")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '80px' }}>{_(".total_score")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "60px" }}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "100px" }}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "80px" }}>{_(".total_score")}</Table.HeaderCell>
             {ranklist.problemIds.map((problemId, index) => (
               <Table.HeaderCell key={problemId} textAlign="center">
                 {String.fromCharCode(65 + index)}
@@ -73,10 +73,7 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell className={style.rankCell}>{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link
-                  href={`/u/${item.username}`}
-                  className={style.usernameLink}
-                >
+                <Link href={`/u/${item.username}`} className={style.usernameLink}>
                   {renderUsername(item.username, item.rating)}
                 </Link>
               </Table.Cell>
@@ -87,15 +84,18 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
                 <Table.Cell key={status.problemId} className={style.problemCell}>
                   {status.score !== undefined && status.score !== null ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <span className={status.score === 100 ? style.fullScore : style.score} style={{ fontSize: "1.2em" }}>
+                      <span
+                        className={status.score === 100 ? style.fullScore : style.score}
+                        style={{ fontSize: "1.2em" }}
+                      >
                         {status.score}
                       </span>
                       {isIOI && status.firstAcceptTime !== undefined && status.firstAcceptTime !== null && (
-                        <span style={{ fontSize: "0.8em", color: "#999", marginTop: '2px' }}>
+                        <span style={{ fontSize: "0.8em", color: "#999", marginTop: "2px" }}>
                           {status.firstAcceptTime}m
                         </span>
                       )}
-                      {status.score === 100 && <Icon name="check" style={{ marginTop: '2px' }} />}
+                      {status.score === 100 && <Icon name="check" style={{ marginTop: "2px" }} />}
                     </div>
                   ) : (
                     <span className={style.noScore}>-</span>
@@ -114,10 +114,10 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
       <Table celled unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell style={{ width: '60px' }}>{_(".rank")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '100px' }}>{_(".username")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '80px' }}>{_(".solved")}</Table.HeaderCell>
-            <Table.HeaderCell style={{ width: '80px' }}>{_(".penalty")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "60px" }}>{_(".rank")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "100px" }}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "80px" }}>{_(".solved")}</Table.HeaderCell>
+            <Table.HeaderCell style={{ width: "80px" }}>{_(".penalty")}</Table.HeaderCell>
             {ranklist.problemIds.map((problemId, index) => (
               <Table.HeaderCell key={problemId} textAlign="center">
                 {String.fromCharCode(65 + index)}
@@ -130,10 +130,7 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell className={style.rankCell}>{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link
-                  href={`/u/${item.username}`}
-                  className={style.usernameLink}
-                >
+                <Link href={`/u/${item.username}`} className={style.usernameLink}>
                   {renderUsername(item.username, item.rating)}
                 </Link>
               </Table.Cell>
@@ -146,7 +143,7 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
                   {status.accepted ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                       <span style={{ color: "#db2828", fontSize: "1.2em" }}>+</span>
-                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: '2px' }}>
+                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: "2px" }}>
                         {status.wrongAttempts > 0 && `(-${status.wrongAttempts}) `}
                         {status.solveTime}m
                       </span>
@@ -154,9 +151,11 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
                   ) : status.wrongAttempts > 0 ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                       <span style={{ color: "#21ba45", fontSize: "1.2em" }}>-</span>
-                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: '2px' }}>
+                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: "2px" }}>
                         (-{status.wrongAttempts})
-                        {status.lastSubmitTime !== undefined && status.lastSubmitTime !== null && ` ${status.lastSubmitTime}m`}
+                        {status.lastSubmitTime !== undefined &&
+                          status.lastSubmitTime !== null &&
+                          ` ${status.lastSubmitTime}m`}
                       </span>
                     </div>
                   ) : (
@@ -191,14 +190,7 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
         <span style={{ color: "#666", fontSize: "0.9em" }}>
           {_(".last_update")}: {formatTime(lastUpdate)} ({_(".auto_refresh_30s")})
         </span>
-        <Button
-          icon
-          labelPosition="left"
-          size="small"
-          onClick={fetchRanklist}
-          loading={loading}
-          disabled={loading}
-        >
+        <Button icon labelPosition="left" size="small" onClick={fetchRanklist} loading={loading} disabled={loading}>
           <Icon name="refresh" />
           {_(".refresh")}
         </Button>

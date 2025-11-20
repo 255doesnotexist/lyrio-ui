@@ -8,7 +8,8 @@ return {
   owner: "Właściciel",
   admin: "Administrator",
   cannot_modify_owner: "Nie można modyfikować",
-  owner_description: "Właściciel to pierwszy zarejestrowany użytkownik z najwyższymi uprawnieniami, których nie można odebrać",
+  owner_description:
+    "Właściciel to pierwszy zarejestrowany użytkownik z najwyższymi uprawnieniami, których nie można odebrać",
   revoke_admin: "Odbierz uprawnienia admina",
   grant_admin: "Nadaj uprawnienia admina",
   admin_granted: "Nadano uprawnienia administratora",

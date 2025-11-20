@@ -7,7 +7,8 @@ return {
     password_note: "密码字段为可选，留空则自动生成随机密码"
   },
   csv_content: "CSV 内容",
-  csv_placeholder: "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
+  csv_placeholder:
+    "username1,email1@example.com,password1\nusername2,email2@example.com,password2\nusername3,email3@example.com,",
   require_password_change: "要求用户首次登录时修改密码",
   require_password_change_note: "勾选后，用户在首次登录时将被强制要求修改密码",
   submit: "开始导入",
