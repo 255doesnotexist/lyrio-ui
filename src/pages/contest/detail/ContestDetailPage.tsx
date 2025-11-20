@@ -194,18 +194,18 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                 <Table.Cell key={status.problemId} textAlign="center">
                   {status.score !== undefined && status.score !== null ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <span style={{ color: status.score === 100 ? "#21ba45" : "#666", fontSize: "1.2em" }}>
+                      <span style={{ color: status.score === 100 ? "#21ba45" : "#666", fontSize: "1.1em", fontWeight: 500 }}>
                         {status.score}
                       </span>
                       {isIOI && status.firstAcceptTime !== undefined && status.firstAcceptTime !== null && (
-                        <span style={{ fontSize: "0.8em", color: "#999", marginTop: '2px' }}>
+                        <span style={{ fontSize: "0.75em", color: "#aaa", marginTop: '2px', fontWeight: 400 }}>
                           {status.firstAcceptTime}m
                         </span>
                       )}
-                      {status.score === 100 && <Icon name="check" style={{ marginTop: '2px' }} />}
+                      {status.score === 100 && <Icon name="check" style={{ marginTop: '2px', fontSize: '0.9em' }} />}
                     </div>
                   ) : (
-                    <span style={{ color: "#ccc" }}>-</span>
+                    <span style={{ color: "#ddd" }}>-</span>
                   )}
                 </Table.Cell>
               ))}
@@ -249,22 +249,22 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                 <Table.Cell key={status.problemId} textAlign="center">
                   {status.accepted ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <span style={{ color: "#db2828", fontSize: "1.2em" }}>+</span>
-                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: '2px' }}>
+                      <span style={{ color: "#21ba45", fontSize: "1.1em", fontWeight: 500 }}>+</span>
+                      <span style={{ fontSize: "0.8em", color: "#888", marginTop: '2px', fontWeight: 400 }}>
                         {status.wrongAttempts > 0 && `(-${status.wrongAttempts}) `}
                         {status.solveTime}m
                       </span>
                     </div>
                   ) : status.wrongAttempts > 0 ? (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <span style={{ color: "#21ba45", fontSize: "1.2em" }}>-</span>
-                      <span style={{ fontSize: "0.85em", color: "#666", marginTop: '2px' }}>
+                      <span style={{ color: "#db2828", fontSize: "1.1em", fontWeight: 500 }}>-</span>
+                      <span style={{ fontSize: "0.8em", color: "#888", marginTop: '2px', fontWeight: 400 }}>
                         (-{status.wrongAttempts})
                         {status.lastSubmitTime !== undefined && status.lastSubmitTime !== null && ` ${status.lastSubmitTime}m`}
                       </span>
                     </div>
                   ) : (
-                    <span style={{ color: "#ccc" }}>-</span>
+                    <span style={{ color: "#ddd" }}>-</span>
                   )}
                 </Table.Cell>
               ))}
@@ -319,7 +319,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
           ) : ranklist ? (
             <>
               <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ color: "#666", fontSize: "0.9em" }}>
+                <span style={{ color: "#888", fontSize: "0.85em", fontWeight: 400 }}>
                   {_(".auto_refresh_30s")}
                 </span>
                 <div>
@@ -327,9 +327,10 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                     icon
                     labelPosition="left"
                     size="small"
+                    basic
                     as={Link}
                     href={`/c/${contest.id}/ranklist`}
-                    style={{ marginRight: "0.5rem" }}
+                    style={{ marginRight: "0.5rem", fontWeight: 400 }}
                   >
                     <Icon name="external" />
                     {_(".view_full_ranklist")}
@@ -338,9 +339,11 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                     icon
                     labelPosition="left"
                     size="small"
+                    basic
                     onClick={fetchRanklist}
                     loading={ranklistLoading}
                     disabled={ranklistLoading}
+                    style={{ fontWeight: 400 }}
                   >
                     <Icon name="refresh" />
                     {_(".refresh")}
@@ -348,7 +351,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                 </div>
               </div>
               {ranklist.ranklist.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "2rem", color: "#999" }}>
+                <div style={{ textAlign: "center", padding: "3rem 2rem", color: "#aaa", fontSize: "0.95em" }}>
                   {_(".no_ranklist_data")}
                 </div>
               ) : ranklist.contestType === "ACM" ? (
@@ -418,7 +421,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
               <span className={style.status}>{getContestStatus()}</span>
               <span className={style.remaining}>{getTimeRemaining()}</span>
             </div>
-            <Progress percent={getContestProgress()} indicating className={style.progress} />
+            <Progress percent={getContestProgress()} className={style.progress} />
             <div className={style.timeRange}>
               <span>{formatDateTime(contest.startTime)[1]}</span>
               <span>{formatDateTime(contest.endTime)[1]}</span>

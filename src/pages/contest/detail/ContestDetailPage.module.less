@@ -1,54 +1,97 @@
 .progressSegment {
-  padding: 20px !important;
+  padding: 24px !important;
+  background: #fafafa !important;
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
 }
 
 .timeInfo {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  align-items: baseline;
+  margin-bottom: 16px;
 }
 
 .status {
-  font-weight: bold;
-  font-size: 1.1em;
+  font-weight: 500;
+  font-size: 1em;
   color: #21ba45;
+  letter-spacing: 0.2px;
 }
 
 .remaining {
-  color: #666;
+  color: #888;
+  font-size: 0.95em;
+  font-weight: 400;
 }
 
 .progress {
-  margin: 15px 0 !important;
+  margin: 16px 0 !important;
+
+  // 自定义进度条样式，使其更简约扁平
+  :global(.bar) {
+    min-width: 0 !important;
+    border-radius: 2px !important;
+    background: linear-gradient(90deg, #2185d0 0%, #1678c2 100%) !important;
+    transition: width 0.3s ease !important;
+  }
+
+  &:global(.ui.progress) {
+    background: #e8e8e8 !important;
+    border-radius: 2px !important;
+    height: 8px !important;
+
+    :global(.bar) {
+      height: 8px !important;
+    }
+  }
+
+  // 移除 indicating 状态的脉动动画
+  &:global(.ui.indicating.progress) {
+    :global(.bar) {
+      animation: none !important;
+    }
+  }
 }
 
 .timeRange {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9em;
-  color: #666;
-  margin-top: 10px;
+  font-size: 0.85em;
+  color: #999;
+  font-weight: 400;
+  margin-top: 8px;
 }
 
 .problemLink {
-  font-weight: bold;
-  font-size: 1.05em;
+  font-weight: 500;
+  font-size: 1em;
+  color: #2185d0;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #1678c2;
+  }
 }
 
 .info {
-  margin: 15px 0;
+  margin: 20px 0;
 }
 
 .infoItem {
-  margin: 10px 0;
+  margin: 12px 0;
   display: flex;
   align-items: center;
+  line-height: 1.6;
 }
 
 .infoLabel {
-  font-weight: bold;
+  font-weight: 500;
+  color: #555;
   width: 100px;
   flex-shrink: 0;
+  font-size: 0.95em;
 }
 
 .registrationButton {
