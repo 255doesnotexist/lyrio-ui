@@ -102,6 +102,11 @@ let ContestListPage: React.FC<ContestListPageProps> = props => {
                     <Link href={`/c/${contest.id}`} className={style.contestLink}>
                       {contest.title}
                     </Link>
+                    {appState.currentUser && appState.currentUser.id === contest.ownerId && (
+                      <span className={contest.isPublic ? style.publicBadge : style.privateBadge}>
+                        [{contest.isPublic ? _(".form.public") : _(".form.private")}]
+                      </span>
+                    )}
                     {contest.description && (
                       <div className={style.description}>{contest.description}</div>
                     )}
