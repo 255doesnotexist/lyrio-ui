@@ -443,7 +443,9 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
                 </div>
               ) : (
                 <Table basic="very" textAlign="center" unstackable>
-                  {isMobile ? <SubmissionHeaderMobile /> : <SubmissionHeader page="submissions" config={{ hideContest: true, hideSubmitter: true }} />}
+                  <Table.Header>
+                    {isMobile ? <SubmissionHeaderMobile /> : <SubmissionHeader page="submissions" config={{ hideContest: true, hideSubmitter: true }} />}
+                  </Table.Header>
                   <Table.Body>
                     {submissions.map(submission =>
                       isMobile ? (

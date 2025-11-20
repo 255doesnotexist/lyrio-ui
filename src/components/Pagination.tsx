@@ -26,6 +26,11 @@ class PatchedUIPagination extends UIPagination {
       });
     };
   }
+
+  render() {
+    const { pageUrl, ...restProps } = this.props as PatchedUIPaginationProps;
+    return super.render.call({ ...this, props: restProps });
+  }
 }
 
 interface PaginationProps {
