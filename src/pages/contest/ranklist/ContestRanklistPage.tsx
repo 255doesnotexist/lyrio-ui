@@ -8,7 +8,7 @@ import { useLocalizer } from "@/utils/hooks";
 import api from "@/api";
 import { defineRoute, RouteError } from "@/AppRouter";
 import style from "./ContestRanklistPage.module.less";
-import { getRatingColor } from "@/utils/rating";
+import { renderUsername } from "@/utils/renderUsername";
 
 interface ContestRanklistPageProps {
   ranklist: ApiTypes.GetContestRanklistResponseDto;
@@ -76,9 +76,8 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
                 <Link
                   href={`/u/${item.username}`}
                   className={style.usernameLink}
-                  style={{ color: getRatingColor(item.rating), fontWeight: 500 }}
                 >
-                  {item.username}
+                  {renderUsername(item.username, item.rating)}
                 </Link>
               </Table.Cell>
               <Table.Cell className={style.scoreCell}>
@@ -134,9 +133,8 @@ let ContestRanklistPage: React.FC<ContestRanklistPageProps> = props => {
                 <Link
                   href={`/u/${item.username}`}
                   className={style.usernameLink}
-                  style={{ color: getRatingColor(item.rating), fontWeight: 500 }}
                 >
-                  {item.username}
+                  {renderUsername(item.username, item.rating)}
                 </Link>
               </Table.Cell>
               <Table.Cell className={style.solvedCell}>

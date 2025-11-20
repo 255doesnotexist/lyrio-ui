@@ -12,6 +12,7 @@ import MarkdownContent from "@/markdown/MarkdownContent";
 import { defineRoute, RouteError } from "@/AppRouter";
 import style from "./ContestDetailPage.module.less";
 import { getRatingColor } from "@/utils/rating";
+import { renderUsername } from "@/utils/renderUsername";
 import {
   SubmissionItem,
   SubmissionItemMobile,
@@ -248,8 +249,8 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell textAlign="center">{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link href={`/u/${item.username}`} style={{ color: getRatingColor(item.rating), fontWeight: 500 }}>
-                  {item.username}
+                <Link href={`/u/${item.username}`}>
+                  {renderUsername(item.username, item.rating)}
                 </Link>
               </Table.Cell>
               <Table.Cell textAlign="center">
@@ -302,8 +303,8 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell textAlign="center">{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link href={`/u/${item.username}`} style={{ color: getRatingColor(item.rating), fontWeight: 500 }}>
-                  {item.username}
+                <Link href={`/u/${item.username}`}>
+                  {renderUsername(item.username, item.rating)}
                 </Link>
               </Table.Cell>
               <Table.Cell textAlign="center">
@@ -523,8 +524,8 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <div className={style.info}>
               <div className={style.infoItem}>
                 <span className={style.infoLabel}>{_(".owner")}:</span>
-                <Link href={`/u/${contest.ownerUsername}`} style={{ color: getRatingColor(contest.ownerRating), fontWeight: 500 }}>
-                  {contest.ownerUsername}
+                <Link href={`/u/${contest.ownerUsername}`}>
+                  {renderUsername(contest.ownerUsername, contest.ownerRating)}
                 </Link>
               </div>
               <div className={style.infoItem}>

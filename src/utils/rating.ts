@@ -64,3 +64,35 @@ export function getRatingTierI18nKey(rating: number | undefined | null): string 
   const tier = getRatingTierInfo(rating);
   return tier ? tier.i18nKey : "newbie";
 }
+
+/**
+ * Check if a rating qualifies as Legendary Grandmaster (>= 3000)
+ */
+export function isLegendaryGrandmaster(rating: number | undefined | null): boolean {
+  return rating !== undefined && rating !== null && rating >= 3000;
+}
+
+/**
+ * Get username parts for rendering (for Legendary Grandmaster special styling)
+ * Returns { firstChar, restChars, isLegendary, color }
+ */
+export function getUsernameParts(username: string, rating: number | undefined | null) {
+  const isLegendary = isLegendaryGrandmaster(rating);
+  const color = getRatingColor(rating);
+
+  if (isLegendary) {
+    return {
+      firstChar: username.charAt(0),
+      restChars: username.slice(1),
+      isLegendary: true,
+      color
+    };
+  }
+
+  return {
+    firstChar: "",
+    restChars: username,
+    isLegendary: false,
+    color
+  };
+}
