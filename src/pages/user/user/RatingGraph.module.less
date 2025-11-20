@@ -1,51 +1,58 @@
 .ratingGraph {
-  padding: 20px;
+  padding: 24px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+  align-items: baseline;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .title {
-  font-size: 1.1em;
+  font-size: 1.05em;
   font-weight: 500;
-  color: #333;
+  color: #555;
+  letter-spacing: 0.2px;
 }
 
 .currentRating {
-  font-size: 1.2em;
+  font-size: 1.15em;
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .noData {
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
   color: #aaa;
   font-size: 0.95em;
+  font-weight: 400;
 }
 
 .tooltip {
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 12px 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  padding: 10px 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   font-size: 0.9em;
 }
 
 .tooltipContest {
   font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   color: #333;
+  font-size: 0.95em;
 }
 
 .tooltipTime {
-  font-size: 0.85em;
+  font-size: 0.8em;
   color: #888;
   margin-bottom: 8px;
+  font-weight: 400;
 }
 
 .tooltipRating {
@@ -54,17 +61,21 @@
   align-items: center;
   margin-bottom: 4px;
   font-weight: 500;
+  font-size: 0.95em;
 }
 
 .ratingUp {
   color: #21ba45;
+  font-weight: 600;
 }
 
 .ratingDown {
   color: #db2828;
+  font-weight: 600;
 }
 
 .tooltipRank {
-  font-size: 0.88em;
-  color: #666;
+  font-size: 0.85em;
+  color: #888;
+  font-weight: 400;
 }

@@ -11,6 +11,7 @@ import toast from "@/utils/toast";
 import MarkdownContent from "@/markdown/MarkdownContent";
 import { defineRoute, RouteError } from "@/AppRouter";
 import style from "./ContestDetailPage.module.less";
+import { getRatingColor } from "@/utils/rating";
 import {
   SubmissionItem,
   SubmissionItemMobile,
@@ -247,7 +248,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell textAlign="center">{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link href={`/u/${item.username}`}>
+                <Link href={`/u/${item.username}`} style={{ color: getRatingColor(item.rating), fontWeight: 500 }}>
                   {item.username}
                 </Link>
               </Table.Cell>
@@ -301,7 +302,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <Table.Row key={item.userId}>
               <Table.Cell textAlign="center">{item.rank}</Table.Cell>
               <Table.Cell>
-                <Link href={`/u/${item.username}`}>
+                <Link href={`/u/${item.username}`} style={{ color: getRatingColor(item.rating), fontWeight: 500 }}>
                   {item.username}
                 </Link>
               </Table.Cell>
@@ -520,7 +521,9 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             <div className={style.info}>
               <div className={style.infoItem}>
                 <span className={style.infoLabel}>{_(".owner")}:</span>
-                <Link href={`/u/${contest.ownerUsername}`}>{contest.ownerUsername}</Link>
+                <Link href={`/u/${contest.ownerUsername}`} style={{ color: getRatingColor(contest.ownerRating), fontWeight: 500 }}>
+                  {contest.ownerUsername}
+                </Link>
               </div>
               <div className={style.infoItem}>
                 <span className={style.infoLabel}>{_(".type")}:</span>

@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 
 import style from "./RatingGraph.module.less";
 import { useLocalizer } from "@/utils/hooks";
+import { getRatingColor } from "@/utils/rating";
 
 interface RatingGraphProps {
   ratingHistory: ApiTypes.RatingChangeDto[];
@@ -48,18 +49,6 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
   const ratingRange = maxRating - minRating;
   const yAxisMin = Math.max(0, Math.floor((minRating - ratingRange * 0.1) / 100) * 100);
   const yAxisMax = Math.ceil((maxRating + ratingRange * 0.1) / 100) * 100;
-
-  // Rating color function (similar to Codeforces)
-  const getRatingColor = (rating: number): string => {
-    if (rating >= 2400) return "#ff0000"; // red (legendary grandmaster)
-    if (rating >= 2300) return "#ff3333"; // red (international grandmaster)
-    if (rating >= 2100) return "#ff7777"; // red (grandmaster)
-    if (rating >= 1900) return "#ff8c00"; // orange (master)
-    if (rating >= 1600) return "#a0a"; // violet (candidate master)
-    if (rating >= 1400) return "#0000ff"; // blue (expert)
-    if (rating >= 1200) return "#03a89e"; // cyan (specialist)
-    return "#808080"; // gray (newbie/pupil)
-  };
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -106,34 +95,36 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
           {_(".rating_graph.current_rating")}: {currentRating}
         </span>
       </div>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+      <ResponsiveContainer width="100%" height={280}>
+        <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis
             dataKey="index"
             tick={false}
-            stroke="#999"
+            stroke="#ddd"
+            strokeWidth={1}
           />
           <YAxis
             domain={[yAxisMin, yAxisMax]}
-            stroke="#999"
-            tick={{ fontSize: 12 }}
+            stroke="#ddd"
+            strokeWidth={1}
+            tick={{ fontSize: 11, fill: "#888" }}
           />
           <Tooltip content={<CustomTooltip />} />
-          <ReferenceLine y={1200} stroke="#03a89e" strokeDasharray="3 3" strokeOpacity={0.3} />
-          <ReferenceLine y={1400} stroke="#0000ff" strokeDasharray="3 3" strokeOpacity={0.3} />
-          <ReferenceLine y={1600} stroke="#a0a" strokeDasharray="3 3" strokeOpacity={0.3} />
-          <ReferenceLine y={1900} stroke="#ff8c00" strokeDasharray="3 3" strokeOpacity={0.3} />
-          <ReferenceLine y={2100} stroke="#ff7777" strokeDasharray="3 3" strokeOpacity={0.3} />
-          <ReferenceLine y={2300} stroke="#ff3333" strokeDasharray="3 3" strokeOpacity={0.3} />
-          <ReferenceLine y={2400} stroke="#ff0000" strokeDasharray="3 3" strokeOpacity={0.3} />
+          <ReferenceLine y={1200} stroke="#03a89e" strokeDasharray="2 2" strokeOpacity={0.25} />
+          <ReferenceLine y={1400} stroke="#0000ff" strokeDasharray="2 2" strokeOpacity={0.25} />
+          <ReferenceLine y={1600} stroke="#a0a" strokeDasharray="2 2" strokeOpacity={0.25} />
+          <ReferenceLine y={1900} stroke="#ff8c00" strokeDasharray="2 2" strokeOpacity={0.25} />
+          <ReferenceLine y={2100} stroke="#ff7777" strokeDasharray="2 2" strokeOpacity={0.25} />
+          <ReferenceLine y={2300} stroke="#ff3333" strokeDasharray="2 2" strokeOpacity={0.25} />
+          <ReferenceLine y={2400} stroke="#ff0000" strokeDasharray="2 2" strokeOpacity={0.25} />
           <Line
             type="monotone"
             dataKey="rating"
-            stroke="#4a90e2"
-            strokeWidth={2}
-            dot={{ fill: "#4a90e2", r: 4 }}
-            activeDot={{ r: 6 }}
+            stroke="#2185d0"
+            strokeWidth={2.5}
+            dot={{ fill: "#2185d0", r: 3.5, strokeWidth: 0 }}
+            activeDot={{ r: 5.5, fill: "#1678c2" }}
           />
         </LineChart>
       </ResponsiveContainer>
