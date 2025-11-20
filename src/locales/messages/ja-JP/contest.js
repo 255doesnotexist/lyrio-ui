@@ -57,6 +57,17 @@ return {
     CONTEST_STARTED: "コンテスト開始後は登録解除できません"
   },
 
+  calculate_rating: "レーティング計算",
+  calculate_rating_normal: "レーティング計算",
+  calculate_rating_recalculate: "再計算（カスケード）",
+  calculate_rating_success: "レーティングの計算が完了しました",
+
+  calculate_rating_error: {
+    PERMISSION_DENIED: "権限がありません",
+    NO_SUCH_CONTEST: "コンテストが存在しません",
+    CONTEST_NOT_ENDED: "コンテストがまだ終了していません"
+  },
+
   ranklist_title: "{title} - 順位表",
   contest_type: "コンテスト形式",
   rank: "順位",

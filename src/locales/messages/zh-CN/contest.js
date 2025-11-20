@@ -57,6 +57,17 @@ return {
     CONTEST_STARTED: "比赛已开始，无法取消报名"
   },
 
+  calculate_rating: "计算 Rating",
+  calculate_rating_normal: "计算 Rating",
+  calculate_rating_recalculate: "重新计算（级联）",
+  calculate_rating_success: "Rating 计算成功",
+
+  calculate_rating_error: {
+    PERMISSION_DENIED: "权限不足",
+    NO_SUCH_CONTEST: "比赛不存在",
+    CONTEST_NOT_ENDED: "比赛尚未结束"
+  },
+
   ranklist_title: "{title} - 排行榜",
   contest_type: "赛制",
   rank: "排名",

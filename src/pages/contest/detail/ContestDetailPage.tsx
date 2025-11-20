@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { Grid, Header, Segment, Button, Icon, Progress, Tab, Table, Loader } from "semantic-ui-react";
+import { Grid, Header, Segment, Button, Icon, Progress, Tab, Table, Loader, Dropdown } from "semantic-ui-react";
 import { Link } from "react-navi";
 
 import { appState } from "@/appState";
@@ -35,6 +35,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
   const [activeTab, setActiveTab] = useState(0);
   const [submissions, setSubmissions] = useState<ApiTypes.SubmissionMetaDto[] | null>(null);
   const [submissionsLoading, setSubmissionsLoading] = useState(false);
+  const [calculatingRating, setCalculatingRating] = useState(false);
   const isMobile = useScreenWidthWithin(0, 768);
 
   useEffect(() => {
@@ -166,6 +167,32 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
     if (!requestError && response && !response.error) {
       setSubmissions(response.submissions);
     }
+  };
+
+  const handleCalculateRating = async (recalculate: boolean) => {
+    setCalculatingRating(true);
+    const { requestError, response } = await api.contest.calculateContestRating({
+      contestId: contest.id,
+      recalculate
+    });
+    setCalculatingRating(false);
+
+    if (requestError) {
+      toast.error(requestError(_));
+    } else if (response.error) {
+      toast.error(_(`.calculate_rating_error.${response.error}`));
+    } else {
+      toast.success(_(".calculate_rating_success"));
+      // Refresh ranklist if it's already loaded
+      if (ranklist) {
+        fetchRanklist();
+      }
+    }
+  };
+
+  const canCalculateRating = () => {
+    const end = new Date(contest.endTime);
+    return now >= end;
   };
 
   useEffect(() => {
@@ -554,16 +581,50 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             )}
 
             {contest.hasPermissionToManage && (
-              <Button
-                primary
-                fluid
-                as={Link}
-                href={`/c/${contest.id}/edit`}
-                className={style.manageButton}
-              >
-                <Icon name="edit" />
-                {_(".edit_contest")}
-              </Button>
+              <>
+                <Button
+                  primary
+                  fluid
+                  as={Link}
+                  href={`/c/${contest.id}/edit`}
+                  className={style.manageButton}
+                >
+                  <Icon name="edit" />
+                  {_(".edit_contest")}
+                </Button>
+
+                {appState.currentUser?.isAdmin && (
+                  <Dropdown
+                    fluid
+                    className={style.calculateRatingButton}
+                    disabled={!canCalculateRating() || calculatingRating}
+                    loading={calculatingRating}
+                    trigger={
+                      <Button
+                        fluid
+                        disabled={!canCalculateRating() || calculatingRating}
+                        loading={calculatingRating}
+                      >
+                        <Icon name="calculator" />
+                        {_(".calculate_rating")}
+                      </Button>
+                    }
+                  >
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        text={_(".calculate_rating_normal")}
+                        icon="play"
+                        onClick={() => handleCalculateRating(false)}
+                      />
+                      <Dropdown.Item
+                        text={_(".calculate_rating_recalculate")}
+                        icon="redo"
+                        onClick={() => handleCalculateRating(true)}
+                      />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                )}
+              </>
             )}
           </Segment>
         </Grid.Column>

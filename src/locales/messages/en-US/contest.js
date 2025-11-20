@@ -57,6 +57,17 @@ return {
     CONTEST_STARTED: "Cannot unregister after contest has started"
   },
 
+  calculate_rating: "Calculate Rating",
+  calculate_rating_normal: "Calculate Rating",
+  calculate_rating_recalculate: "Recalculate (Cascade)",
+  calculate_rating_success: "Rating calculated successfully",
+
+  calculate_rating_error: {
+    PERMISSION_DENIED: "Permission denied",
+    NO_SUCH_CONTEST: "Contest not found",
+    CONTEST_NOT_ENDED: "Contest has not ended yet"
+  },
+
   ranklist_title: "{title} - Ranklist",
   contest_type: "Contest Type",
   rank: "Rank",
