@@ -51,5 +51,12 @@ return {
     contest_take_part_count: "コンテスト参加回数",
     rating: "レーティング",
     rank: "ランキング"
+  },
+  rating_graph: {
+    title: "レーティング変化",
+    current_rating: "現在のレーティング",
+    no_data: "レーティングデータがありません",
+    rating: "レーティング",
+    rank: "順位"
   }
 };

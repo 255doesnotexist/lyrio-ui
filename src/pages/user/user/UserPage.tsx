@@ -15,6 +15,7 @@ import { isValidUsername } from "@/utils/validators";
 import { makeToBeLocalizedText } from "@/locales";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 import MarkdownContent from "@/markdown/MarkdownContent";
+import RatingGraph from "./RatingGraph";
 
 function getTimeZone() {
   try {
@@ -328,7 +329,7 @@ let UserPage: React.FC<UserPageProps> = props => {
         <Icon name="calendar" />
       </div>
       <span className={style.key}>{_(".statictics.contest_take_part_count")}</span>
-      <span className={style.value}>{0}</span>
+      <span className={style.value}>{props.contestParticipationCount || 0}</span>
     </div>,
     <div className={style.item}>
       <div className={style.iconWrapper}>
@@ -374,9 +375,7 @@ let UserPage: React.FC<UserPageProps> = props => {
         </>
       )}
       <Segment className={style.ratingSegment} attached="bottom">
-        <Segment placeholder className={style.placeholder}>
-          Rating Graph
-        </Segment>
+        <RatingGraph ratingHistory={props.ratingHistory || []} />
       </Segment>
     </>
   );

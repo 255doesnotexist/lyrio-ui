@@ -51,5 +51,12 @@ return {
     contest_take_part_count: "Participation",
     rating: "Rating",
     rank: "Rank"
+  },
+  rating_graph: {
+    title: "Rating Changes",
+    current_rating: "Current Rating",
+    no_data: "No rating data yet",
+    rating: "Rating",
+    rank: "Rank"
   }
 };

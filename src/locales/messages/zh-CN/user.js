@@ -51,5 +51,12 @@ return {
     contest_take_part_count: "参加比赛数",
     rating: "积分",
     rank: "排名"
+  },
+  rating_graph: {
+    title: "Rating 变化",
+    current_rating: "当前 Rating",
+    no_data: "暂无 Rating 数据",
+    rating: "Rating",
+    rank: "排名"
   }
 };
