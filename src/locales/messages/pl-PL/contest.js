@@ -57,6 +57,17 @@ return {
     CONTEST_STARTED: "Nie można wyrejestrować się po rozpoczęciu konkursu"
   },
 
+  calculate_rating: "Oblicz ocenę",
+  calculate_rating_normal: "Oblicz ocenę",
+  calculate_rating_recalculate: "Przelicz ponownie (kaskadowo)",
+  calculate_rating_success: "Ocena została obliczona pomyślnie",
+
+  calculate_rating_error: {
+    PERMISSION_DENIED: "Brak uprawnień",
+    NO_SUCH_CONTEST: "Konkurs nie istnieje",
+    RATING_ALREADY_CALCULATED: "Ocena została już obliczona"
+  },
+
   ranklist_title: "{title} - Ranking",
   contest_type: "Typ konkursu",
   rank: "Pozycja",
@@ -65,6 +76,7 @@ return {
   solved: "Rozwiązane",
   penalty: "Kara",
   no_ranklist_data: "Brak danych rankingowych",
+  no_submissions: "Brak zgłoszeń",
   last_update: "Ostatnia aktualizacja",
   auto_refresh_30s: "Automatyczne odświeżanie co 30s",
   refresh: "Odśwież",

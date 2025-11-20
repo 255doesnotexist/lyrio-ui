@@ -57,6 +57,19 @@ return {
     current_rating: "当前 Rating",
     no_data: "暂无 Rating 数据",
     rating: "Rating",
-    rank: "排名"
+    rank: "排名",
+    initial_rating: "初始 Rating"
+  },
+  rating_tier: {
+    newbie: "新手",
+    pupil: "入门",
+    specialist: "专家",
+    expert: "专业",
+    candidate_master: "准大师",
+    master: "大师",
+    international_master: "国际大师",
+    grandmaster: "特级大师",
+    legendary_grandmaster: "传奇特级大师",
+    unrated: "未评级"
   }
 };

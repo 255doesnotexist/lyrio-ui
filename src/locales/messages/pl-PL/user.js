@@ -51,5 +51,25 @@ return {
     contest_take_part_count: "Udział",
     rating: "Ocena",
     rank: "Pozycja"
+  },
+  rating_graph: {
+    title: "Zmiany oceny",
+    current_rating: "Aktualna ocena",
+    no_data: "Brak danych oceny",
+    rating: "Ocena",
+    rank: "Pozycja",
+    initial_rating: "Początkowa ocena"
+  },
+  rating_tier: {
+    newbie: "Nowicjusz",
+    pupil: "Uczeń",
+    specialist: "Specjalista",
+    expert: "Ekspert",
+    candidate_master: "Kandydat na mistrza",
+    master: "Mistrz",
+    international_master: "Mistrz międzynarodowy",
+    grandmaster: "Wielki mistrz",
+    legendary_grandmaster: "Legendarny wielki mistrz",
+    unrated: "Bez oceny"
   }
 };

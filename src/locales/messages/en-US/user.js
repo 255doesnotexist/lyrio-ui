@@ -57,6 +57,19 @@ return {
     current_rating: "Current Rating",
     no_data: "No rating data yet",
     rating: "Rating",
-    rank: "Rank"
+    rank: "Rank",
+    initial_rating: "Initial Rating"
+  },
+  rating_tier: {
+    newbie: "Newbie",
+    pupil: "Pupil",
+    specialist: "Specialist",
+    expert: "Expert",
+    candidate_master: "Candidate Master",
+    master: "Master",
+    international_master: "International Master",
+    grandmaster: "Grandmaster",
+    legendary_grandmaster: "Legendary Grandmaster",
+    unrated: "Unrated"
   }
 };

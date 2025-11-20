@@ -1,20 +1,36 @@
-import React from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import React, { useState } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceArea } from "recharts";
 import dayjs from "dayjs";
 
 import style from "./RatingGraph.module.less";
-import { useLocalizer } from "@/utils/hooks";
-import { getRatingColor } from "@/utils/rating";
+import { useLocalizer, Link } from "@/utils/hooks";
+import { getRatingColor, getRatingTierI18nKey, RATING_TIERS } from "@/utils/rating";
 
 interface RatingGraphProps {
   ratingHistory: ApiTypes.RatingChangeDto[];
 }
 
+interface ChartDataPoint {
+  index: number;
+  contestTitle: string;
+  rating: number;
+  ratingChange: number;
+  rank: number | null;
+  participantCount: number | null;
+  time: string;
+  contestId: number | null;
+}
+
 const RatingGraph: React.FC<RatingGraphProps> = props => {
   const _ = useLocalizer("user");
+  const [hoveredPoint, setHoveredPoint] = useState<{
+    data: ChartDataPoint;
+    x: number;
+    y: number;
+  } | null>(null);
 
   // Prepare data for chart - always start with initial 1500 rating like Codeforces
-  const initialData = {
+  const initialData: ChartDataPoint = {
     index: -1,
     contestTitle: "Initial",
     rating: 1500,
@@ -25,9 +41,9 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
     contestId: null
   };
 
-  const ratingChangesData =
+  const ratingChangesData: ChartDataPoint[] =
     props.ratingHistory && props.ratingHistory.length > 0
-      ? props.ratingHistory.map((change, index) => ({
+      ? props.ratingHistory.map((change, index): ChartDataPoint => ({
           index,
           contestTitle: change.contestTitle,
           rating: change.newRating,
@@ -40,7 +56,7 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
       : [];
 
   // Always include initial 1500 rating point at the start
-  const chartData = [initialData, ...ratingChangesData];
+  const chartData: ChartDataPoint[] = [initialData, ...ratingChangesData];
 
   // Calculate rating range for Y-axis
   const ratings = chartData.map(d => d.rating);
@@ -50,81 +66,149 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
   const yAxisMin = Math.max(0, Math.floor((minRating - ratingRange * 0.1) / 100) * 100);
   const yAxisMax = Math.ceil((maxRating + ratingRange * 0.1) / 100) * 100;
 
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
+  // Determine which tier backgrounds to show based on Y-axis range
+  const visibleTiers = RATING_TIERS.filter(tier => tier.min < yAxisMax && tier.max > yAxisMin);
 
-      // For initial rating point, show simplified tooltip
-      if (data.index === -1) {
-        return (
+  // Generate Y-axis ticks aligned with tier boundaries (Codeforces style)
+  const tierBoundaries = [1200, 1400, 1600, 1900, 2100, 2300, 2400, 2600, 3000];
+  const yAxisTicks = tierBoundaries.filter(tick => tick >= yAxisMin && tick <= yAxisMax);
+
+  // Add min and max if they're not already included
+  if (yAxisTicks.length === 0 || yAxisTicks[0] > yAxisMin + 100) {
+    yAxisTicks.unshift(yAxisMin);
+  }
+  if (yAxisTicks[yAxisTicks.length - 1] < yAxisMax - 100) {
+    yAxisTicks.push(yAxisMax);
+  }
+
+  // Custom dot component that handles hover
+  const CustomDot = (props: {
+    cx: number;
+    cy: number;
+    payload: ChartDataPoint;
+  }) => {
+    const { cx, cy, payload } = props;
+    const isHovered = hoveredPoint?.data.index === payload.index;
+
+    return (
+      <circle
+        cx={cx}
+        cy={cy}
+        r={isHovered ? 4.5 : 3}
+        fill="white"
+        stroke="#FFCC00"
+        strokeWidth={isHovered ? 2.5 : 2}
+        onMouseEnter={() => setHoveredPoint({ data: payload, x: cx, y: cy })}
+        style={{ cursor: 'pointer' }}
+      />
+    );
+  };
+
+  const renderTooltip = () => {
+    if (!hoveredPoint) return null;
+
+    const { data, x, y } = hoveredPoint;
+
+    // Position tooltip to the right of the dot, offset by 15px
+    const tooltipStyle = {
+      left: `${x + 15}px`,
+      top: `${y - 10}px`,
+    };
+
+    // For initial rating point, show simplified tooltip
+    if (data.index === -1) {
+      const tierKey = getRatingTierI18nKey(data.rating);
+      return (
+        <div
+          className={style.tooltipWrapper}
+          style={tooltipStyle}
+          onMouseEnter={(e) => e.stopPropagation()}
+        >
           <div className={style.tooltip}>
-            <div className={style.tooltipContest}>Initial Rating</div>
+            <div className={style.tooltipContest}>{_(".rating_graph.initial_rating")}</div>
             <div className={style.tooltipRating}>
-              <span style={{ color: getRatingColor(data.rating) }}>{_(".rating_graph.rating")}: {data.rating}</span>
+              <span style={{ color: getRatingColor(data.rating), fontWeight: "bolder" }}>
+                {data.rating}
+              </span>
+            </div>
+            <div className={style.tooltipTier} style={{ color: getRatingColor(data.rating) }}>
+              {_(".rating_tier." + tierKey)}
             </div>
           </div>
-        );
-      }
+        </div>
+      );
+    }
 
-      return (
+    const tierKey = getRatingTierI18nKey(data.rating);
+
+    return (
+      <div
+        className={style.tooltipWrapper}
+        style={tooltipStyle}
+        onMouseEnter={(e) => e.stopPropagation()}
+      >
         <div className={style.tooltip}>
-          <div className={style.tooltipContest}>{data.contestTitle}</div>
+          <Link href={`/c/${data.contestId}`} className={style.tooltipContest}>
+            {data.contestTitle}
+          </Link>
           <div className={style.tooltipTime}>{data.time}</div>
           <div className={style.tooltipRating}>
-            <span style={{ color: getRatingColor(data.rating) }}>{_(".rating_graph.rating")}: {data.rating}</span>
-            <span className={data.ratingChange >= 0 ? style.ratingUp : style.ratingDown}>
-              {data.ratingChange >= 0 ? "+" : ""}{data.ratingChange}
+            <span style={{ color: getRatingColor(data.rating), fontWeight: "bolder" }}>
+              {data.rating}
             </span>
+            <span className={data.ratingChange >= 0 ? style.ratingUp : style.ratingDown}>
+              ({data.ratingChange >= 0 ? "+" : ""}{data.ratingChange})
+            </span>
+          </div>
+          <div className={style.tooltipTier} style={{ color: getRatingColor(data.rating) }}>
+            {_(".rating_tier." + tierKey)}
           </div>
           <div className={style.tooltipRank}>
             {_(".rating_graph.rank")}: {data.rank} / {data.participantCount}
           </div>
         </div>
-      );
-    }
-    return null;
+      </div>
+    );
   };
 
-  const currentRating = chartData[chartData.length - 1]?.rating || 1500;
-
   return (
-    <div className={style.ratingGraph}>
-      <div className={style.header}>
-        <span className={style.title}>{_(".rating_graph.title")}</span>
-        <span className={style.currentRating} style={{ color: getRatingColor(currentRating) }}>
-          {_(".rating_graph.current_rating")}: {currentRating}
-        </span>
-      </div>
-      <ResponsiveContainer width="100%" height={280}>
-        <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+    <div className={style.ratingGraph} onMouseLeave={() => setHoveredPoint(null)}>
+      {renderTooltip()}
+      <ResponsiveContainer width="100%" height={250}>
+        <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+          {/* Background tier colors - Codeforces style */}
+          {visibleTiers.map((tier, index) => (
+            <ReferenceArea
+              key={index}
+              y1={tier.min}
+              y2={tier.max}
+              fill={tier.color}
+              fillOpacity={0.15}
+              ifOverflow="hidden"
+            />
+          ))}
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8e8e8" strokeOpacity={0.5} />
           <XAxis
             dataKey="index"
             tick={false}
-            stroke="#ddd"
+            stroke="#ccc"
             strokeWidth={1}
           />
           <YAxis
             domain={[yAxisMin, yAxisMax]}
-            stroke="#ddd"
+            ticks={yAxisTicks}
+            stroke="#ccc"
             strokeWidth={1}
-            tick={{ fontSize: 11, fill: "#888" }}
+            tick={{ fontSize: 11, fill: "#767676" }}
+            width={40}
           />
-          <Tooltip content={<CustomTooltip />} />
-          <ReferenceLine y={1200} stroke="#03a89e" strokeDasharray="2 2" strokeOpacity={0.25} />
-          <ReferenceLine y={1400} stroke="#0000ff" strokeDasharray="2 2" strokeOpacity={0.25} />
-          <ReferenceLine y={1600} stroke="#a0a" strokeDasharray="2 2" strokeOpacity={0.25} />
-          <ReferenceLine y={1900} stroke="#ff8c00" strokeDasharray="2 2" strokeOpacity={0.25} />
-          <ReferenceLine y={2100} stroke="#ff7777" strokeDasharray="2 2" strokeOpacity={0.25} />
-          <ReferenceLine y={2300} stroke="#ff3333" strokeDasharray="2 2" strokeOpacity={0.25} />
-          <ReferenceLine y={2400} stroke="#ff0000" strokeDasharray="2 2" strokeOpacity={0.25} />
+          {/* Gold line with white-filled dots - Codeforces style */}
           <Line
             type="monotone"
             dataKey="rating"
-            stroke="#2185d0"
-            strokeWidth={2.5}
-            dot={{ fill: "#2185d0", r: 3.5, strokeWidth: 0 }}
-            activeDot={{ r: 5.5, fill: "#1678c2" }}
+            stroke="#FFCC00"
+            strokeWidth={2}
+            dot={<CustomDot />}
           />
         </LineChart>
       </ResponsiveContainer>

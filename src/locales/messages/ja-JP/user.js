@@ -57,6 +57,19 @@ return {
     current_rating: "現在のレーティング",
     no_data: "レーティングデータがありません",
     rating: "レーティング",
-    rank: "順位"
+    rank: "順位",
+    initial_rating: "初期レーティング"
+  },
+  rating_tier: {
+    newbie: "初心者",
+    pupil: "入門者",
+    specialist: "スペシャリスト",
+    expert: "エキスパート",
+    candidate_master: "マスター候補",
+    master: "マスター",
+    international_master: "国際マスター",
+    grandmaster: "グランドマスター",
+    legendary_grandmaster: "レジェンドグランドマスター",
+    unrated: "未評価"
   }
 };

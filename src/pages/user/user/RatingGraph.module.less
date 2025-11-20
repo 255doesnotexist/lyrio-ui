@@ -1,81 +1,83 @@
 .ratingGraph {
-  padding: 24px;
+  padding: 0;
+  position: relative;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #e8e8e8;
-}
-
-.title {
-  font-size: 1.05em;
-  font-weight: 500;
-  color: #555;
-  letter-spacing: 0.2px;
-}
-
-.currentRating {
-  font-size: 1.15em;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+.tooltipWrapper {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: auto;
+  transform: translateY(-50%);
 }
 
 .noData {
   text-align: center;
-  padding: 60px 20px;
-  color: #aaa;
-  font-size: 0.95em;
-  font-weight: 400;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 11px;
+  font-weight: normal;
 }
 
 .tooltip {
-  background: white;
-  border: 1px solid #e8e8e8;
+  background: rgba(255, 240, 245, 0.95);
+  border: 1px solid rgba(255, 182, 193, 0.6);
   border-radius: 3px;
   padding: 10px 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   font-size: 0.9em;
+  min-width: 200px;
+  pointer-events: auto !important;
+  z-index: 1000;
 }
 
 .tooltipContest {
-  font-weight: 500;
+  font-weight: bolder;
   margin-bottom: 4px;
   color: #333;
   font-size: 0.95em;
+  text-decoration: none;
+
+  &:hover {
+    color: #1678c2;
+    text-decoration: underline;
+  }
 }
 
 .tooltipTime {
-  font-size: 0.8em;
+  font-size: 11px;
   color: #888;
-  margin-bottom: 8px;
-  font-weight: 400;
+  margin-bottom: 6px;
+  font-weight: normal;
 }
 
 .tooltipRating {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   align-items: center;
   margin-bottom: 4px;
+  font-size: 1em;
+}
+
+.tooltipTier {
+  font-size: 0.85em;
+  margin-bottom: 4px;
   font-weight: 500;
-  font-size: 0.95em;
 }
 
 .ratingUp {
   color: #21ba45;
-  font-weight: 600;
+  font-weight: bolder;
+  font-size: 0.9em;
 }
 
 .ratingDown {
   color: #db2828;
-  font-weight: 600;
+  font-weight: bolder;
+  font-size: 0.9em;
 }
 
 .tooltipRank {
-  font-size: 0.85em;
-  color: #888;
-  font-weight: 400;
+  font-size: 11px;
+  color: #666;
+  font-weight: normal;
 }

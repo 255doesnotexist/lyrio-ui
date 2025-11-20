@@ -58,6 +58,10 @@ declare namespace ApiTypes {
   }
   export interface CalculateContestRatingRequestDto {
     contestId: number;
+    /**
+     * If true, recalculate this contest and all subsequent contests
+     */
+    recalculate?: boolean;
   }
   export interface CalculateContestRatingResponseDto {
     error?: "NO_SUCH_CONTEST" | "PERMISSION_DENIED" | "CONTEST_NOT_ENDED";
@@ -89,6 +93,7 @@ declare namespace ApiTypes {
     isPublic: boolean;
     ownerId: number;
     ownerUsername: string;
+    ownerRating?: number;
     createTime: string; // date-time
     problemCount: number;
   }
@@ -103,6 +108,7 @@ declare namespace ApiTypes {
     rank: number;
     userId: number;
     username: string;
+    rating?: number;
     totalScore?: number;
     solvedCount?: number;
     totalPenalty?: number;
@@ -319,6 +325,7 @@ declare namespace ApiTypes {
     editorial?: string;
     ownerId?: number;
     ownerUsername?: string;
+    ownerRating?: number;
     createTime?: string; // date-time
     problems?: ApiTypes.ContestProblemMetaDto[];
     hasPermissionToManage?: boolean;
@@ -533,6 +540,8 @@ declare namespace ApiTypes {
     submissionCountPerDay?: number[];
     rank?: number;
     hasPrivilege?: boolean;
+    contestParticipationCount?: number;
+    ratingHistory?: ApiTypes.RatingChangeDto[];
   }
   export interface GetUserListRequestDto {
     sortBy: "acceptedProblemCount" | "rating";
