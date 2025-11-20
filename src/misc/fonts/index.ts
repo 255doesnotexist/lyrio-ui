@@ -30,7 +30,7 @@ import { Locale } from "@/interfaces/Locale";
 import { appState } from "@/appState";
 
 // This module uses Vite's compile-time plugin
-const uiFontSelectors = import.meta.compileTime("./ui-font-selectors.js") as string[];
+import { uiFontSelectors } from "./ui-font-selectors.compile";
 
 export const availableCodeFonts = [
   "Fira Code",

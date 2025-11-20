@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const dtsgenerator = require("dtsgenerator").default;
+const { default: dtsgenerator, parseSchema } = require("dtsgenerator");
 const fs = require("fs-extra");
 
 const apiUrl =
@@ -41,8 +41,19 @@ function normalizeModuleName(moduleName, forFilename) {
 
   // Generate types file with dtsgenerator
   const typesFile = await dtsgenerator({
-    contents: [api],
-    namespaceName
+    contents: [parseSchema(api)],
+    config: {
+      plugins: {
+        "@dtsgenerator/replace-namespace": {
+          map: [
+            {
+              from: [true], // wildcard - match all namespaces
+              to: [namespaceName]
+            }
+          ]
+        }
+      }
+    }
   });
   await fs.writeFile(__dirname + "/../src/api-generated/types.d.ts", generatedMessage + typesFile);
 

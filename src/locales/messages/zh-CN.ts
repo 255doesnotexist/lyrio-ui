@@ -1,1 +1,1 @@
-import.meta.compileTime("./zh-CN/import.ts");
+export { messages as default } from "./zh-CN/import.compile";

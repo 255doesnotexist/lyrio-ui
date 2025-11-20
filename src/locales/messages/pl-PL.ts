@@ -1,1 +1,1 @@
-import.meta.compileTime("./pl-PL/import.ts");
+export { messages as default } from "./pl-PL/import.compile";

@@ -49,7 +49,6 @@ const tsconfigPathAliases = Object.fromEntries(
 
 const modernTargets = browsersWithSupportForFeatures(
   "es6-module-dynamic-import",
-  "javascript.statements.import_meta",
   "javascript.operators.await.top_level"
 ).filter(browser => !(browser.includes("safari") || browser.includes("ios_saf")));
 
@@ -108,20 +107,20 @@ const baseExternalPackages: Record<
     css?: string | string[];
   }
 > = {
-  react: {
-    globalVariableName: "React",
-    devScript: "umd/react.development.js",
-    prodScript: "umd/react.production.min.js"
-  },
-  "react-dom": {
-    globalVariableName: "ReactDOM",
-    devScript: "umd/react-dom.development.js",
-    prodScript: "umd/react-dom.production.min.js"
-  },
-  mobx: { globalVariableName: "mobx", devScript: "mobx.umd.development.js", prodScript: "mobx.umd.production.min.js" },
-  axios: { globalVariableName: "axios", devScript: "axios.min.js" },
-  noty: { globalVariableName: "Noty", devScript: "noty.min.js", css: "noty.min.css" },
-  "semantic-ui-react": { globalVariableName: "semanticUIReact", devScript: "semantic-ui-react.min.js" },
+  // react: {
+  //   globalVariableName: "React",
+  //   devScript: "umd/react.development.js",
+  //   prodScript: "umd/react.production.min.js"
+  // },
+  // "react-dom": {
+  //   globalVariableName: "ReactDOM",
+  //   devScript: "umd/react-dom.development.js",
+  //   prodScript: "umd/react-dom.production.min.js"
+  // }, // Removed: CDN version not compatible with React 19
+  // mobx: { globalVariableName: "mobx", devScript: "mobx.umd.development.js", prodScript: "mobx.umd.production.min.js" }, // Removed: use local version
+  // axios: { globalVariableName: "axios", devScript: "axios.min.js" }, // Removed: use local version
+  // noty: { globalVariableName: "Noty", devScript: "noty.min.js", css: "noty.min.css" }, // Removed: use local version
+  // "semantic-ui-react": { globalVariableName: "semanticUIReact", devScript: "semantic-ui-react.min.js" }, // Removed: not compatible with React 19
   "fomantic-ui-css": {
     cdnjsName: "fomantic-ui",
     css: semanticUiCssComponents.map(component => `components/${component}.min.css`)
@@ -191,8 +190,7 @@ export default defineConfig({
         // Windows XP
         "Firefox 52"
       ],
-      modernTargets,
-      modernFeatureTestExtraCode: "await 0;if(navigator.vendor.includes('Apple'))throw 0;"
+      modernTargets
     }),
     publicPath({
       publicPathExpression: "window.publicPath",
@@ -238,7 +236,7 @@ export default defineConfig({
       languages: fs.readFileSync(".prism-languages", "utf-8").trim().split("\n")
     }),
     externals({
-      "monaco-editor": "Monaco",
+      // "monaco-editor": "Monaco", // Removed: use local version
       ...Object.fromEntries(
         Object.entries(baseExternalPackages)
           .filter(([, { globalVariableName }]) => globalVariableName)

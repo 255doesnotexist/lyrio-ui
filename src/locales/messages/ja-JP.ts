@@ -1,1 +1,1 @@
-import.meta.compileTime("./ja-JP/import.ts");
+export { messages as default } from "./ja-JP/import.compile";
