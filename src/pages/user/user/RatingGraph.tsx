@@ -12,25 +12,34 @@ interface RatingGraphProps {
 const RatingGraph: React.FC<RatingGraphProps> = props => {
   const _ = useLocalizer("user");
 
-  if (!props.ratingHistory || props.ratingHistory.length === 0) {
-    return (
-      <div className={style.noData}>
-        {_(".rating_graph.no_data")}
-      </div>
-    );
-  }
+  // Prepare data for chart - always start with initial 1500 rating like Codeforces
+  const initialData = {
+    index: -1,
+    contestTitle: "Initial",
+    rating: 1500,
+    ratingChange: 0,
+    rank: null,
+    participantCount: null,
+    time: "",
+    contestId: null
+  };
 
-  // Prepare data for chart
-  const chartData = props.ratingHistory.map((change, index) => ({
-    index,
-    contestTitle: change.contestTitle,
-    rating: change.newRating,
-    ratingChange: change.ratingChange,
-    rank: change.rank,
-    participantCount: change.participantCount,
-    time: dayjs(change.time).format("YYYY-MM-DD"),
-    contestId: change.contestId
-  }));
+  const ratingChangesData =
+    props.ratingHistory && props.ratingHistory.length > 0
+      ? props.ratingHistory.map((change, index) => ({
+          index,
+          contestTitle: change.contestTitle,
+          rating: change.newRating,
+          ratingChange: change.ratingChange,
+          rank: change.rank,
+          participantCount: change.participantCount,
+          time: dayjs(change.time).format("YYYY-MM-DD"),
+          contestId: change.contestId
+        }))
+      : [];
+
+  // Always include initial 1500 rating point at the start
+  const chartData = [initialData, ...ratingChangesData];
 
   // Calculate rating range for Y-axis
   const ratings = chartData.map(d => d.rating);
@@ -55,6 +64,19 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
+
+      // For initial rating point, show simplified tooltip
+      if (data.index === -1) {
+        return (
+          <div className={style.tooltip}>
+            <div className={style.tooltipContest}>Initial Rating</div>
+            <div className={style.tooltipRating}>
+              <span style={{ color: getRatingColor(data.rating) }}>{_(".rating_graph.rating")}: {data.rating}</span>
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div className={style.tooltip}>
           <div className={style.tooltipContest}>{data.contestTitle}</div>
@@ -74,7 +96,7 @@ const RatingGraph: React.FC<RatingGraphProps> = props => {
     return null;
   };
 
-  const currentRating = chartData[chartData.length - 1]?.rating || 0;
+  const currentRating = chartData[chartData.length - 1]?.rating || 1500;
 
   return (
     <div className={style.ratingGraph}>
