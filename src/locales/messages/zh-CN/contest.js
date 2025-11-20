@@ -65,6 +65,7 @@ return {
   solved: "通过",
   penalty: "罚时",
   no_ranklist_data: "暂无排行榜数据",
+  no_submissions: "暂无提交记录",
   last_update: "最后更新",
   auto_refresh_30s: "每30秒自动刷新",
   refresh: "刷新",

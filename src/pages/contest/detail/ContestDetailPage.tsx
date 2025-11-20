@@ -4,13 +4,19 @@ import { Grid, Header, Segment, Button, Icon, Progress, Tab, Table, Loader } fro
 import { Link } from "react-navi";
 
 import { appState } from "@/appState";
-import { useLocalizer, useNavigationChecked, useLoginOrRegisterNavigation } from "@/utils/hooks";
+import { useLocalizer, useNavigationChecked, useLoginOrRegisterNavigation, useScreenWidthWithin } from "@/utils/hooks";
 import formatDateTime from "@/utils/formatDateTime";
 import api from "@/api";
 import toast from "@/utils/toast";
 import MarkdownContent from "@/markdown/MarkdownContent";
 import { defineRoute, RouteError } from "@/AppRouter";
 import style from "./ContestDetailPage.module.less";
+import {
+  SubmissionItem,
+  SubmissionItemMobile,
+  SubmissionHeader,
+  SubmissionHeaderMobile
+} from "@/pages/submission/componments/SubmissionItem";
 
 interface ContestDetailPageProps {
   contest: ApiTypes.GetContestDetailResponseDto;
@@ -27,6 +33,9 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
   const [ranklist, setRanklist] = useState<ApiTypes.GetContestRanklistResponseDto | null>(null);
   const [ranklistLoading, setRanklistLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const [submissions, setSubmissions] = useState<ApiTypes.SubmissionMetaDto[] | null>(null);
+  const [submissionsLoading, setSubmissionsLoading] = useState(false);
+  const isMobile = useScreenWidthWithin(0, 768);
 
   useEffect(() => {
     if (contest) {
@@ -145,10 +154,29 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
     }
   };
 
+  const fetchSubmissions = async () => {
+    setSubmissionsLoading(true);
+    const { requestError, response } = await api.submission.querySubmission({
+      contestId: contest.id,
+      locale: appState.locale,
+      takeCount: 50
+    });
+    setSubmissionsLoading(false);
+
+    if (!requestError && response && !response.error) {
+      setSubmissions(response.submissions);
+    }
+  };
+
   useEffect(() => {
     // Load ranklist when ranklist tab is active (index 1)
     if (activeTab === 1 && !ranklist) {
       fetchRanklist();
+    }
+
+    // Load submissions when submissions tab is active (index 2)
+    if (activeTab === 2 && !submissions) {
+      fetchSubmissions();
     }
 
     // Set up auto-refresh every 30 seconds when ranklist tab is active
@@ -156,6 +184,15 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
       const interval = setInterval(() => {
         fetchRanklist();
       }, 30000);
+
+      return () => clearInterval(interval);
+    }
+
+    // Set up auto-refresh every 10 seconds when submissions tab is active
+    if (activeTab === 2) {
+      const interval = setInterval(() => {
+        fetchSubmissions();
+      }, 10000);
 
       return () => clearInterval(interval);
     }
@@ -368,15 +405,30 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
       menuItem: _(".tab.submissions"),
       render: () => (
         <Tab.Pane>
-          <Button
-            primary
-            as={Link}
-            href={`/s?contestId=${contest.id}`}
-            fluid
-          >
-            <Icon name="hourglass" />
-            {_(".view_submissions")}
-          </Button>
+          {submissionsLoading && !submissions ? (
+            <Loader active inline="centered" />
+          ) : submissions ? (
+            <>
+              {submissions.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "3rem 2rem", color: "#aaa", fontSize: "0.95em" }}>
+                  {_(".no_submissions")}
+                </div>
+              ) : (
+                <Table basic="very" textAlign="center" unstackable>
+                  {isMobile ? <SubmissionHeaderMobile /> : <SubmissionHeader page="submissions" config={{ hideContest: true, hideSubmitter: true }} />}
+                  <Table.Body>
+                    {submissions.map(submission =>
+                      isMobile ? (
+                        <SubmissionItemMobile key={submission.id} submission={submission} />
+                      ) : (
+                        <SubmissionItem key={submission.id} submission={submission} page="submissions" config={{ hideContest: true, hideSubmitter: true }} />
+                      )
+                    )}
+                  </Table.Body>
+                </Table>
+              )}
+            </>
+          ) : null}
         </Tab.Pane>
       )
     }

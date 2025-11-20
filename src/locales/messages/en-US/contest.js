@@ -65,6 +65,7 @@ return {
   solved: "Solved",
   penalty: "Penalty",
   no_ranklist_data: "No ranklist data available",
+  no_submissions: "No submissions yet",
   last_update: "Last update",
   auto_refresh_30s: "Auto-refresh every 30s",
   refresh: "Refresh",

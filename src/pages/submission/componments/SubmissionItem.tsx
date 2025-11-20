@@ -29,6 +29,8 @@ function parseSubmissionMeta(submission: ApiTypes.SubmissionMetaDto) {
 
 interface SubmissionItemConfig {
   hideTimeMemory?: boolean;
+  hideContest?: boolean;
+  hideSubmitter?: boolean;
 }
 
 interface SubmissionHeaderProps {
@@ -47,7 +49,9 @@ export const SubmissionHeader: React.FC<SubmissionHeaderProps> = props => {
       <Table.HeaderCell className={style.columnScore}>{_(".columns.score")}</Table.HeaderCell>
       <Table.HeaderCell className={style.columnProblemAndSubmitter} textAlign="left">
         <div className={style.problem}>{_(".columns.problem")}</div>
-        <div className={style.submitter}>{_(".columns.submitter")}</div>
+        {!props?.config?.hideSubmitter && (
+          <div className={style.submitter}>{_(".columns.submitter")}</div>
+        )}
       </Table.HeaderCell>
       {!props?.config?.hideTimeMemory && (
         <>
@@ -56,7 +60,9 @@ export const SubmissionHeader: React.FC<SubmissionHeaderProps> = props => {
         </>
       )}
       <Table.HeaderCell className={style.columnAnswer}>{_(".columns.answer")}</Table.HeaderCell>
-      <Table.HeaderCell className={style.columnContest}>{_(".columns.contest")}</Table.HeaderCell>
+      {!props?.config?.hideContest && (
+        <Table.HeaderCell className={style.columnContest}>{_(".columns.contest")}</Table.HeaderCell>
+      )}
       <Table.HeaderCell className={style.columnSubmitTime}>{_(".columns.submit_time")}</Table.HeaderCell>
     </Table.Row>
   );
@@ -108,9 +114,11 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
             <Link href={problemUrl}>{getProblemDisplayName(submission.problem, submission.problemTitle, _)}</Link>
           </EmojiRenderer>
         </div>
-        <div className={style.submitter}>
-          <UserLink user={submission.submitter} />
-        </div>
+        {!props?.config?.hideSubmitter && (
+          <div className={style.submitter}>
+            <UserLink user={submission.submitter} />
+          </div>
+        )}
       </Table.Cell>
       {!props?.config?.hideTimeMemory && (
         <>
@@ -154,13 +162,15 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
           on="hover"
         />
       </Table.Cell>
-      <Table.Cell className={style.columnContest}>
-        {submission.contestId && submission.contestTitle ? (
-          <Link href={`/c/${submission.contestId}`}>{submission.contestTitle}</Link>
-        ) : (
-          "-"
-        )}
-      </Table.Cell>
+      {!props?.config?.hideContest && (
+        <Table.Cell className={style.columnContest}>
+          {submission.contestId && submission.contestTitle ? (
+            <Link href={`/c/${submission.contestId}`}>{submission.contestTitle}</Link>
+          ) : (
+            "-"
+          )}
+        </Table.Cell>
+      )}
       <Table.Cell className={style.columnSubmitTime} title={timeString[1]}>
         {timeString[0]}
       </Table.Cell>
