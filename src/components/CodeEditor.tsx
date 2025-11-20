@@ -5,22 +5,48 @@ import { registerRulesForLanguage } from "monaco-ace-tokenizer";
 import ResizeSensor from "css-element-queries/src/ResizeSensor";
 import path from "path";
 
-import * as Monaco from "monaco-editor";
+import type * as MonacoType from "monaco-editor";
 
 import style from "./CodeEditor.module.less";
+
+// Get Monaco instance from window (set by LazyCodeEditor)
+const Monaco = window["Monaco"] as typeof MonacoType;
 
 import { CodeLanguage } from "@/interfaces/CodeLanguage";
 import { appState } from "@/appState";
 import { generateCodeFontEditorOptions } from "@/misc/fonts";
 import { themeList } from "@/themes";
 
-// ACE highlights
-import AceHighlightHaskell from "monaco-ace-tokenizer/es/ace/definitions/haskell";
-Monaco.languages.register({ id: "haskell" });
-registerRulesForLanguage("haskell", new AceHighlightHaskell());
+// Register custom languages that Monaco doesn't support natively
+let languagesRegistered = false;
+function registerCustomLanguages() {
+  if (languagesRegistered || !Monaco) return;
+  languagesRegistered = true;
+
+  // Only register if not already registered
+  const registeredLanguages = Monaco.languages.getLanguages().map(lang => lang.id);
+
+  if (!registeredLanguages.includes("haskell")) {
+    try {
+      // ACE highlights for Haskell
+      const AceHighlightHaskell = require("monaco-ace-tokenizer/es/ace/definitions/haskell").default;
+      Monaco.languages.register({
+        id: "haskell",
+        extensions: [".hs", ".lhs"],
+        aliases: ["Haskell", "haskell"],
+        mimetypes: ["text/x-haskell"]
+      });
+      registerRulesForLanguage("haskell", new AceHighlightHaskell());
+    } catch (e) {
+      console.error("Failed to register Haskell language:", e);
+    }
+  }
+}
+
+// Register custom languages
+registerCustomLanguages();
 
 // Monaco themes
-
 Object.entries(import.meta.glob("../assets/monaco-themes/*.json", { eager: true })).forEach(
   ([filename, data]: [string, any]) => {
     Monaco.editor.defineTheme(path.basename(filename, ".json"), data.default || data);
