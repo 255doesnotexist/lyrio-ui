@@ -98,6 +98,8 @@ let ContestProblemPage: React.FC<ContestProblemPageProps> = props => {
   const canAccessProblem = () => {
     // Admins and contest owners can always access
     if (contest.hasPermissionToManage) return true;
+    // Cannot access before contest starts
+    if (isContestNotStarted()) return false;
     // Must be registered to access during contest
     if (!contest.isRegistered && !appState.currentUser) return false;
     if (!contest.isRegistered) return false;

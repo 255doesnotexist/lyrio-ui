@@ -80,6 +80,13 @@ return {
   last_update: "Last update",
   auto_refresh_30s: "Auto-refresh every 30s",
   refresh: "Refresh",
+  contest_countdown: "Contest Countdown",
+  contest_start_time: "Contest Start Time",
+  time_unit: {
+    hours: "Hours",
+    minutes: "Minutes",
+    seconds: "Seconds"
+  },
 
   form: {
     title: "Contest Title",

@@ -115,6 +115,12 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
         {!props?.config?.hideSubmitter && (
           <div className={style.submitter}>
             <UserLink user={submission.submitter} />
+            {/* Show IP address for admins in submission detail page */}
+            {props.page === "submission" && submission.submitterIp && (
+              <div style={{ fontSize: "0.85em", color: "#888", marginTop: "2px" }} title={submission.submitterIp}>
+                IP: {submission.submitterIp}
+              </div>
+            )}
           </div>
         )}
       </Table.Cell>
@@ -206,8 +212,8 @@ export const SubmissionHeaderMobile: React.FC<SubmissionHeaderMobileProps> = pro
                   props.importantField === "timeUsed"
                     ? ".columns.time"
                     : props.importantField === "memoryUsed"
-                    ? ".columns.memory"
-                    : ".columns.submit_time"
+                      ? ".columns.memory"
+                      : ".columns.submit_time"
                 )}
               </div>
             </div>

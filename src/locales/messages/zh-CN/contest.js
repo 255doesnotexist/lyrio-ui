@@ -80,6 +80,13 @@ return {
   last_update: "最后更新",
   auto_refresh_30s: "每30秒自动刷新",
   refresh: "刷新",
+  contest_countdown: "比赛倒计时",
+  contest_start_time: "比赛开始时间",
+  time_unit: {
+    hours: "小时",
+    minutes: "分钟",
+    seconds: "秒"
+  },
 
   form: {
     title: "比赛标题",

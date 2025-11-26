@@ -24,4 +24,4 @@ export const makeToBeLocalizedText = (messageId: string, parameters?: LocalizerP
   Object.assign((_: Localizer) => _(messageId, parameters), { isToBeLocalizedText: true as true });
 
 export const isToBeLocalizedText = (object: any): object is ToBeLocalizedText =>
-  "isToBeLocalizedText" in object && object.isToBeLocalizedText === true;
+  object && typeof object === "object" && "isToBeLocalizedText" in object && object.isToBeLocalizedText === true;

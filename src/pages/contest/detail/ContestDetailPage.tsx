@@ -30,6 +30,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
   const navigation = useNavigationChecked();
   const navigateToLogin = useLoginOrRegisterNavigation("login");
   const [now, setNow] = useState(new Date());
+  const [milliseconds, setMilliseconds] = useState(0);
   const [isRegistered, setIsRegistered] = useState(contest.isRegistered);
   const [registrationPending, setRegistrationPending] = useState(false);
   const [ranklist, setRanklist] = useState<ApiTypes.GetContestRanklistResponseDto | null>(null);
@@ -51,6 +52,14 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
 
     return () => clearInterval(timer);
   }, [contest]);
+
+  useEffect(() => {
+    const msTimer = setInterval(() => {
+      setMilliseconds(Date.now() % 1000);
+    }, 100);
+
+    return () => clearInterval(msTimer);
+  }, []);
 
   const getContestProgress = (): number => {
     const start = new Date(contest.startTime).getTime();
@@ -99,6 +108,80 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
     return `${prefix}: ${hours}h ${minutes}m ${seconds}s`;
+  };
+
+  const getCountdownData = () => {
+    const start = new Date(contest.startTime).getTime();
+    const current = Date.now();
+
+    if (current >= start) {
+      return null;
+    }
+
+    const diff = start - current;
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    const ms = Math.floor(diff % 1000);
+
+    return { hours, minutes, seconds, milliseconds: ms };
+  };
+
+  const renderCountdown = () => {
+    const countdownData = getCountdownData();
+
+    if (!countdownData) {
+      return null;
+    }
+
+    const { hours, minutes, seconds, milliseconds } = countdownData;
+
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const displayHours = pad(hours);
+    const displayMinutes = pad(minutes);
+    const displaySeconds = pad(seconds);
+
+    return (
+      <div className={`${style.countdownContainer} ${style.countdownPulsing}`}>
+        <div className={style.countdownTitle}>
+          <Icon name="clock outline" />
+          {_(".contest_countdown")}
+        </div>
+
+        <div className={style.countdownStatus}>{_(".status.not_started")}</div>
+
+        <div className={style.countdownDigits}>
+          <div className={style.timeUnit}>
+            <div className={style.timeValue}>{displayHours}</div>
+            <div className={style.timeLabel}>{_(".time_unit.hours")}</div>
+          </div>
+
+          <div className={style.timeColon}>:</div>
+
+          <div className={style.timeUnit}>
+            <div className={style.timeValue}>{displayMinutes}</div>
+            <div className={style.timeLabel}>{_(".time_unit.minutes")}</div>
+          </div>
+
+          <div className={style.timeColon}>:</div>
+
+          <div className={style.timeUnit}>
+            <div className={style.timeValue}>{displaySeconds}</div>
+            <div className={style.timeLabel}>{_(".time_unit.seconds")}</div>
+          </div>
+
+          <div className={style.timeColonSmall}>:</div>
+
+          <span className={style.milliseconds}>{milliseconds.toString().padStart(3, "0")}</span>
+        </div>
+
+        <div className={style.countdownStartTime}>
+          <Icon name="calendar outline" />
+          {_(".contest_start_time")}: {formatDateTime(contest.startTime)[1]}
+        </div>
+      </div>
+    );
   };
 
   const handleRegister = async () => {
@@ -518,11 +601,15 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
             </div>
           </Segment>
 
-          <Tab
-            panes={panes}
-            activeIndex={activeTab}
-            onTabChange={(e, data) => setActiveTab(data.activeIndex as number)}
-          />
+          {now < new Date(contest.startTime) ? (
+            renderCountdown()
+          ) : (
+            <Tab
+              panes={panes}
+              activeIndex={activeTab}
+              onTabChange={(e, data) => setActiveTab(data.activeIndex as number)}
+            />
+          )}
         </Grid.Column>
 
         <Grid.Column width={5}>
