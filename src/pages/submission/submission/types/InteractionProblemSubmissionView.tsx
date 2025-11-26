@@ -42,17 +42,7 @@ const InteractionProblemSubmissionView: React.FC<InteractionProblemSubmissionVie
 
   // If content is null, the code is hidden
   if (!props.content) {
-    return (
-      <>
-        <Message warning>{_(".code_hidden")}</Message>
-        {props.getSubtasksView(testcaseResult => (
-          <OmittableAnsiCodeBox
-            title={_(".testcase.interactor_message")}
-            ansiMessage={testcaseResult.interactorMessage}
-          />
-        ))}
-      </>
-    );
+    return <Message warning>{_(".code_hidden")}</Message>;
   }
 
   return (

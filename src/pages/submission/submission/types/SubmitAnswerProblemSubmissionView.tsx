@@ -33,14 +33,7 @@ const SubmitAnswerProblemSubmissionView: React.FC<SubmitAnswerProblemSubmissionV
 
   // If content is null, the answer is hidden
   if (!props.content) {
-    return (
-      <>
-        <Message warning>{_(".answer_hidden")}</Message>
-        {props.getSubtasksView(testcaseResult => (
-          <OmittableAnsiCodeBox title={_(".testcase.checker_message")} ansiMessage={testcaseResult.checkerMessage} />
-        ))}
-      </>
-    );
+    return <Message warning>{_(".answer_hidden")}</Message>;
   }
 
   return (

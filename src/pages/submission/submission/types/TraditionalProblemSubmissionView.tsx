@@ -44,14 +44,7 @@ const TraditionalProblemSubmissionView: React.FC<TraditionalProblemSubmissionVie
 
   // If content is null, the code is hidden
   if (!props.content) {
-    return (
-      <>
-        <Message warning>{_(".code_hidden")}</Message>
-        {props.getSubtasksView(testcaseResult => (
-          <OmittableAnsiCodeBox title={_(".testcase.checker_message")} ansiMessage={testcaseResult.checkerMessage} />
-        ))}
-      </>
-    );
+    return <Message warning>{_(".code_hidden")}</Message>;
   }
 
   return (
