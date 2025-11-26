@@ -162,6 +162,7 @@ let ContestDetailPage: React.FC<ContestDetailPageProps> = props => {
     const { requestError, response } = await api.submission.querySubmission({
       contestId: contest.id,
       locale: appState.locale,
+      ...(appState.currentUser && !contest.hasPermissionToManage ? { submitter: appState.currentUser.username } : {}),
       takeCount: 50
     });
     setSubmissionsLoading(false);
