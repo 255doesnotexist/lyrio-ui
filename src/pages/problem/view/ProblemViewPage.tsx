@@ -54,7 +54,7 @@ import { downloadProblemFile, downloadProblemFilesAsArchive } from "../files/Pro
 import { makeToBeLocalizedText } from "@/locales";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 
-export function useProblemViewMarkdownContentPatcher(problemId: number): MarkdownContentPatcher {
+export function useProblemViewMarkdownContentPatcher(problemId: number, contestId?: number): MarkdownContentPatcher {
   const _ = useLocalizer();
 
   const FILE_DOWNLOAD_LINK_PREFIX = "file:";
@@ -67,6 +67,11 @@ export function useProblemViewMarkdownContentPatcher(problemId: number): Markdow
   }
 
   function tryParseAndDownload(fileUrl: string) {
+    // If in contest, hide file download links for normal users (prevent special judging)
+    if (contestId && !appState.currentUser?.isAdmin) {
+      return true; // Pretend we handled it, but do nothing (hide the link)
+    }
+
     if (fileUrl.startsWith(FILE_DOWNLOAD_LINK_ALL_PREFIX)) {
       downloadProblemFilesAsArchive(
         problemId,
@@ -92,9 +97,24 @@ export function useProblemViewMarkdownContentPatcher(problemId: number): Markdow
       renderer.validateLink = url => originValidateLink(url) || isStartedWithFileDownloadPrefix(url.toLowerCase());
     },
     onPatchResult(element) {
-      const onLinkClick = (href: string) => (e: MouseEvent) => tryParseAndDownload(href) && e.preventDefault();
-
-      for (const link of element.getElementsByTagName("a")) link.addEventListener("click", onLinkClick(link.href));
+      // If in contest, hide file download links for normal users
+      if (contestId && !appState.currentUser?.isAdmin) {
+        // Remove all file download links from the DOM
+        const links = element.getElementsByTagName("a");
+        for (let i = links.length - 1; i >= 0; i--) {
+          const link = links[i];
+          const href = link.getAttribute("href") || "";
+          if (isStartedWithFileDownloadPrefix(href.toLowerCase())) {
+            // Replace the link with its text content
+            const text = document.createTextNode(link.textContent || "");
+            link.parentNode?.replaceChild(text, link);
+          }
+        }
+      } else {
+        // Normal behavior - add click handlers
+        const onLinkClick = (href: string) => (e: MouseEvent) => tryParseAndDownload(href) && e.preventDefault();
+        for (const link of element.getElementsByTagName("a")) link.addEventListener("click", onLinkClick(link.href));
+      }
     },
     onXssFileterAttr(tagName, attrName, value, escapeAttrValue) {
       if (tagName === "a" && attrName === "href" && isStartedWithFileDownloadPrefix(value)) return true;
@@ -409,7 +429,10 @@ let ProblemViewPage: React.FC<ProblemViewPageProps> = props => {
     </Statistic.Group>
   );
 
-  const problemViewMarkdownContentPatcher = useProblemViewMarkdownContentPatcher(props.problem.meta.id);
+  const problemViewMarkdownContentPatcher = useProblemViewMarkdownContentPatcher(
+    props.problem.meta.id,
+    props.contestId
+  );
 
   return (
     <>
@@ -680,25 +703,40 @@ let ProblemViewPage: React.FC<ProblemViewPageProps> = props => {
                 />
               )}
               <Menu.Item
+                name={_(".action.my_submissions")}
+                icon="list alternate"
                 as={Link}
                 href={{
-                  pathname: "/d",
+                  pathname: "/s",
                   query: {
-                    problemId: props.problem.meta.id
+                    problemDisplayId: props.problem.meta.displayId,
+                    submitter: appState.currentUser?.username,
+                    ...(props.contestId && { contestId: props.contestId })
                   }
                 }}
-              >
-                <Icon name="comments" />
-                {_(".action.discussion")}
-                {props.problem.discussionCount ? (
-                  <Label
-                    className={style.discussionCount}
-                    circular
-                    content={props.problem.discussionCount}
-                    size="tiny"
-                  />
-                ) : null}
-              </Menu.Item>
+              />
+              {!props.contestId && (
+                <Menu.Item
+                  as={Link}
+                  href={{
+                    pathname: "/d",
+                    query: {
+                      problemId: props.problem.meta.id
+                    }
+                  }}
+                >
+                  <Icon name="comments" />
+                  {_(".action.discussion")}
+                  {props.problem.discussionCount ? (
+                    <Label
+                      className={style.discussionCount}
+                      circular
+                      content={props.problem.discussionCount}
+                      size="tiny"
+                    />
+                  ) : null}
+                </Menu.Item>
+              )}
               <Menu.Item
                 name={_(".action.files")}
                 icon="folder open"
